@@ -13,12 +13,21 @@
 
     </header>
     <main>
-       <h1>Homepage</h1>
-       <% if(LoggedIn){ %>
-      <h1>Welcome, <%= name %></h1>
-      <% } else{ %>
-       <h1>Welcome, User</h1>
-       <% } %>
+        <h1>Homepage</h1>
+        <% if(LoggedIn){ %>
+        <h1>Welcome, <%= name %></h1>
+        <% } else{ %>
+        <h1>Welcome, User</h1>
+        <% } %>
+
+
+        <form action="/imgSearches" method="POST">
+            <input type="text" name="photo" placeholder="GET INSPIRATION">
+            <input type="color" id="color" name="color" value="#000000">
+
+            <input type="submit" value="Submit">
+
+        </form>
     </main>
 </body>
 
