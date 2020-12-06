@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <%- include('./components/header') %>
+
+    </header>
+    <main>
+        <h1>Login</h1>
+        <% if(messages.success_msg){ %>
+        <ul>
+            <li><%= messages.success_msg %></li>
+        </ul>
+        <% } %>
+
+
+        <% if(messages.error){ %>
+            <ul>
+                <li><%= messages.error %></li>
+            </ul>
+            <% } %>
+
+
+        <div class="images-section">
+            <form method="POST" action="/users/login">
+                <input type="email" placeholder="Email" required name="email">
+                <input type="password" placeholder="Password" required name="password">
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
