@@ -144,7 +144,7 @@ async function registerUserInDBHandler(req, res){
 
   if (errors.length > 0) {
     console.log(errors);
-    res.render('register', { err: errors });
+    res.render('register', { LoggedIn: false, err: errors });
   } else {
     let checkIfUserExists = `SELECT * FROM users WHERE email = $1`;
     let hashedPass = await hashPasswords(password1);
