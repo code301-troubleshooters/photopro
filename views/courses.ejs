@@ -7,10 +7,15 @@
 </head>
 <body>
     <h1>Recommended Courses</h1>
-    <main>
-        <ul>
-            
-        </ul>
+    <main><%courses.forEach(course=>{%>
+        <div>
+            <h2><%=course.title%></h2>
+          <a href="https://www.udemy.com<%=course.course_url%>"><img src="<%=course.course_img%>" ></a>
+          <h3><%=course.disc%></h3>
+          <h3><%=course.inst%></h3>
+          <a href="https://www.udemy.com<%=course.inst_url%>"><img src="<%=course.inst_img%>" ></a>
+        </div>
+   <% })%>
     </main>
 </body>
 </html>

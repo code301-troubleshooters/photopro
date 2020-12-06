@@ -88,7 +88,6 @@ if(req.body.type !== 'none'){
     let picturs =imgs.body.hits.map(img =>{
       return new Picture(img) 
     });
-    console.log(picturs);
     res.render('searchResults', {imgs :picturs, LoggedIn: false});
    
   })
@@ -101,7 +100,11 @@ app.get('/courses', (req, res)=>{
   superagent(URL)
   .set('Authorization', `Basic ${Buffer.from(`${process.env.UDEMEM_CLIENT}:${process.env.UDEMEY_SECRET}`).toString('base64')}`)
   .then(result =>{
-    res.status(200).send(result.body);
+    let courses = result.body.results.map(val=>{
+      return new Course (val);
+
+    });
+    res.status(200).render('courses', {LoggedIn:false,courses:courses});
   }).catch((e) =>{
     res.status(500).send(e);
   });
@@ -232,7 +235,16 @@ function Picture (value){
   this.photographerImg=value.userImageURL;
   this.tags=value.tags.split(', ');
 }
+function Course (values){
+  this.course_img = values.image_480x270;
+  this.title = values.title;
+  this.course_url = values.url;
+  this.disc = values.headline;
+  this.inst = values.visible_instructors[0].display_name;
+  this.inst_img = values.visible_instructors[0].image_100x100;
+  this.inst_url = values.visible_instructors[0].url;
 
+}
 
 client.connect()
   .then(() => {
