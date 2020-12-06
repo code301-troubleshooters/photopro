@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <header>
+        <%- include('./components/header') %>
+
+    </header>
+    <main>
+        <h1>Register</h1>
+
+        <% if(typeof err != 'undefined') {%>
+        <ul>
+            <% err.forEach(error =>{ %>
+                <li> <%= error.message %></li>
+           <% }) %>
+        </ul>
+        <% } %>
+        <form method="POST" action="/users/signup">
+            <input type="text" placeholder="Name" required name="name">
+            <input type="email" placeholder="Email" required name="email">
+            <input type="password" placeholder="Enter Password" required name="password1">
+            <input type="password" placeholder="Re-enter Password" required name="password2">
+            <input type="submit" value="Submit">
+        </form>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+<a href="/">Home</a>
+<% if(!LoggedIn) {%>
+<a href="/register">Register</a>
+<a href="/login">Login</a>
+<% } else{%>
+    <a href="/dashboard">Dashboard</a>
+    <form action="/logout?_method=delete" method="POST">
+    <button type="submit">Logout</button>
+</form>
+<% } %>
