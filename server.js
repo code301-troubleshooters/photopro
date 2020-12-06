@@ -67,8 +67,15 @@ app.post("/users/login",checkNotAuthenticatied,  passport.authenticate("local", 
   failureFlash: true
 }));
 
-app.get('/pexels', (req, res)=>{
-  let URL = "https://api.pexels.com/v1/search?query=nature&color=blue"
+app.post('/imgSearches', (req, res)=>{
+  var URL; 
+  let picSearch = req.body.photo;
+  let colorSearch = req.body.color;
+  if(req.body.photo){
+    URL = `https://api.pexels.com/v1/search?query=${picSearch}`
+  }else if(req.body.color){
+    URL = `https://api.pexels.com/v1/search?query=${picSearch}&color=${colorSearch}`
+  } 
   superagent(URL)
   .set('Authorization', '563492ad6f91700001000001d9269557b1a544fab125c1eef85c944e')
   .then(imgs =>{
@@ -76,6 +83,7 @@ app.get('/pexels', (req, res)=>{
   })
   
 });
+
 
 app.get('/courses', (req, res)=>{
   let URL = `https://www.udemy.com/api-2.0/courses/?category=Photography+%26+Video&page=1&page_size=12&price=price-free`;
