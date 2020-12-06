@@ -68,18 +68,29 @@ app.post("/users/login",checkNotAuthenticatied,  passport.authenticate("local", 
 }));
 
 app.post('/imgSearches', (req, res)=>{
-  var URL; 
-  let picSearch = req.body.photo;
-  let colorSearch = req.body.color;
-  if(req.body.photo){
-    URL = `https://api.pexels.com/v1/search?query=${picSearch}`
-  }else if(req.body.color){
-    URL = `https://api.pexels.com/v1/search?query=${picSearch}&color=${colorSearch}`
-  } 
+  let key = process.env.PIXABAY;
+  let picSearch = req.body.search_query;
+
+  let URL= `https://pixabay.com/api/?key=${key}&q=${picSearch}s&image_type=photo&pretty=true`;
+ if(req.body.color !== 'none'){
+   URL+=`&colors=${req.body.color}`
+ }
+ if(req.body.category !== 'none'){
+  URL+=`&category=${req.body.category}`
+}
+if(req.body.type !== 'none'){
+  URL+=`&image_type=${req.body.type}`
+}
   superagent(URL)
-  .set('Authorization', '563492ad6f91700001000001d9269557b1a544fab125c1eef85c944e')
+  
   .then(imgs =>{
-    res.status(200).json(imgs.body);
+
+    let picturs =imgs.body.hits.map(img =>{
+      return new Picture(img) 
+    });
+    console.log(picturs);
+    res.render('searchResults', {imgs :picturs, LoggedIn: false});
+   
   })
   
 });
@@ -213,6 +224,15 @@ function checkNotAuthenticatied(req,res,next){
 function errorHandler(error, req, res) {
   res.status(500).send(error);
 }
+
+function Picture (value){
+  this.img_url = value.webformatURL;
+  this.photographerName = value.user;
+  this.photographerID = value.user_id; 
+  this.photographerImg=value.userImageURL;
+  this.tags=value.tags.split(', ');
+}
+
 
 client.connect()
   .then(() => {
