@@ -88,10 +88,13 @@ if(req.body.type !== 'none'){
     let picturs =imgs.body.hits.map(img =>{
       return new Picture(img) 
     });
-    res.render('searchResults', {imgs :picturs, LoggedIn: false});
-   
-  })
-  
+    if(req.user){
+      res.render('searchResults', {LoggedIn: true, imgs: picturs, name: req.user.name});
+    }
+    else{
+      res.render('searchResults', {imgs: picturs, LoggedIn: false});
+    }
+  });
 });
 
 
@@ -104,7 +107,12 @@ app.get('/courses', (req, res)=>{
       return new Course (val);
 
     });
-    res.status(200).render('courses', {LoggedIn:false,courses:courses});
+    if(req.user){
+      res.render('courses', {LoggedIn: true ,courses: courses, name: req.user.name})  
+    }
+    else{
+      res.status(200).render('courses', {LoggedIn:false, courses:courses});
+    }
   }).catch((e) =>{
     res.status(500).send(e);
   });

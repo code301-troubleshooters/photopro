@@ -9,21 +9,25 @@
 </head>
 
 <body>
+    <%- include('./components/header') %>
+
     <main>
         <%imgs.forEach(img =>{%>
         <div>
-            
+
             <img src="<%=img.img_url%>" alt="">
-            <a href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><%=img.photographerName%></a>
+            <a
+                href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><%=img.photographerName%></a>
             <img src="<%=img.photographerImg%>" alt="">
             <ul>
-           <%img.tags.forEach(tag =>{%>
-                  <li><%=tag%></li>     
-                  
-                  
-             <%})%>
+                <%img.tags.forEach(tag =>{%>
+                <li><%=tag%></li>
+                <%})%>
             </ul>
-            </div>
+            <% if(LoggedIn){ %>
+                <button>Add to favorite</button>
+            <% } %>
+        </div>
         <%})%>
     </main>
 </body>
