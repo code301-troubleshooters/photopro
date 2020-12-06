@@ -25,7 +25,15 @@
                 <%})%>
             </ul>
             <% if(LoggedIn){ %>
+            <form action="/addToFavorite" method="post">
+                <input type="hidden" value="<%=img.img_url%>" name="img_url">
+                <input type="hidden" value="<%=img.photographerName%>" name="photographerName">
+                <input type="hidden" value="<%=img.photographerID%>" name="photographerID">
+                <input type="hidden" value="<%=img.photographerImg%>" name="photographerImg">
+                <input type="hidden" value="<%=img.imgType%>" name="imgType">
+                <input type="hidden" value="<%=user.id%>" name="userId">
                 <button>Add to favorite</button>
+            </form>
             <% } %>
         </div>
         <%})%>

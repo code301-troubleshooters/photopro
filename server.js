@@ -89,7 +89,7 @@ if(req.body.type !== 'none'){
       return new Picture(img) 
     });
     if(req.user){
-      res.render('searchResults', {LoggedIn: true, imgs: picturs, name: req.user.name});
+      res.render('searchResults', {LoggedIn: true, imgs: picturs, user: req.user});
     }
     else{
       res.render('searchResults', {imgs: picturs, LoggedIn: false});
@@ -108,7 +108,7 @@ app.get('/courses', (req, res)=>{
 
     });
     if(req.user){
-      res.render('courses', {LoggedIn: true ,courses: courses, name: req.user.name})  
+      res.render('courses', {LoggedIn: true ,courses: courses, user: req.user})  
     }
     else{
       res.status(200).render('courses', {LoggedIn:false, courses:courses});
@@ -117,10 +117,38 @@ app.get('/courses', (req, res)=>{
     res.status(500).send(e);
   });
 });
+app.post('/addToFavorite', (req,res)=>{
+
+  let {img_url, photographer_name, photographer_id, photographer_img_url, image_type, user_id}=req.body;
+  
+  let SQL = `SELECT * FROM images WHERE img_url=$1;`
+  client.query(SQL, [img_url])
+  .then((data) =>{
+      if(data.rows.length !== 0){
+        let SQL2 =`INSERT INTO favourite (user_id, img_id) VALUES ($1, $2);`
+        client.query(SQL2, [req.user.id, data.rows[0].id])
+        .then(() =>{
+          res.redirect('/favorite');
+        })
+      }else{
+        let newSQL = `INSERT INTO images (img_url, photographer_name, photographer_id, photographer_img_url, image_type) VALUES ($1, $2, $3, $4, $5) RETURNING id;`
+        console.log(req.user.id);
+        client.query(newSQL, [img_url, photographer_name, photographer_id, photographer_img_url, image_type])
+        .then((results)=>{
+          let SQL2 =`INSERT INTO favourite (user_id, img_id) VALUES ($1, $2);`
+        client.query(SQL2, [req.user.id, results.rows[0].id])
+        .then(() =>{
+          res.redirect('/favorite');
+        })
+        })
+      }
+  })
+
+})
 
 function homeHandler(req, res){
   if(req.user){
-    res.render('index', {LoggedIn: true ,name: req.user.name})  
+    res.render('index', {LoggedIn: true ,user: req.user})  
   }
   else{
     res.render('index', {LoggedIn: false})  
@@ -129,7 +157,7 @@ function homeHandler(req, res){
 
 function registerUserHandler(req, res){
   if(req.user){
-    res.render('register', {LoggedIn: true ,name: req.user.name})  
+    res.render('register', {LoggedIn: true ,name: req.user})  
   }
   else{
     res.render('register', {LoggedIn: false});  
@@ -138,7 +166,7 @@ function registerUserHandler(req, res){
 
 function loginUserHandler(req, res){
   if(req.user){
-    res.render('login', {LoggedIn: true ,name: req.user.name})  
+    res.render('login', {LoggedIn: true ,name: req.user})  
   }
   else{
     res.render('login', {LoggedIn: false});  
@@ -147,7 +175,7 @@ function loginUserHandler(req, res){
 
 function dashboardHandler(req, res){
   if(req.user){
-    res.render('dashboard', {LoggedIn: true ,name: req.user.name})  
+    res.render('dashboard', {LoggedIn: true ,user: req.user})  
   }
   else{
     res.render('dashboard', {LoggedIn: false});  
@@ -242,6 +270,7 @@ function Picture (value){
   this.photographerID = value.user_id; 
   this.photographerImg=value.userImageURL;
   this.tags=value.tags.split(', ');
+  this.imgType= value.type;
 }
 function Course (values){
   this.course_img = values.image_480x270;
