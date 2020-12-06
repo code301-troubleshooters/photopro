@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../style/base.css">
+</head>
+
+<body>
+    <main>
+        <%imgs.forEach(img =>{%>
+        <div>
+            
+            <img src="<%=img.img_url%>" alt="">
+            <a href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><%=img.photographerName%></a>
+            <img src="<%=img.photographerImg%>" alt="">
+            <ul>
+           <%img.tags.forEach(tag =>{%>
+                  <li><%=tag%></li>     
+                  
+                  
+             <%})%>
+            </ul>
+            </div>
+        <%})%>
+    </main>
+</body>
+
+</html>
