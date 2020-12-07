@@ -12,18 +12,30 @@
     <%- include('./components/header') %>
 
     <main>
-        <%imgs.forEach(img =>{%>
+        <section>
         <div>
-
+            <%- include('./components/search-form') %>
+        </div>            
+        </section>
+        <section>
+        <%imgs.forEach(img =>{%>
+        <div class="img-details-cards">
+            <div>
             <img src="<%=img.img_url%>" alt="">
-            <a
-                href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><%=img.photographerName%></a>
-            <img src="<%=img.photographerImg%>" alt="">
+            </div>
+            <div class="img-tags">
             <ul>
                 <%img.tags.forEach(tag =>{%>
                 <li><%=tag%></li>
                 <%})%>
             </ul>
+              </div>
+            <div class="photographer-details">
+            <a
+                href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><%=img.photographerName%></a>
+            <img src="<%=img.photographerImg%>" alt="">
+            </div>
+
             <% if(LoggedIn){ %>
             <form action="/addToFavorite" method="post">
                 <input type="hidden" value="<%=img.img_url%>" name="img_url">
@@ -37,7 +49,10 @@
             <% } %>
         </div>
         <%})%>
+    </section>
     </main>
+    <%- include('./components/footer') %>
+
 </body>
 
 </html>

@@ -72,6 +72,17 @@ app.post('/addToFavorite', checkAuthenticatied, addToFavoriteHandler);
 app.get('/favorite', checkAuthenticatied, displayFavoriteHandler);
 app.delete('/removeFromFavorite', checkAuthenticatied, removeFromFavoriteHandler);
 app.get('/books', checkAuthenticatied, bokosHandler);
+app.get('/favorite/filter',checkAuthenticatied,favouriteHandler);
+function favouriteHandler (req,res){
+  let SQL = `SELECT * FROM images WHERE image_type=$1 and id IN (SELECT img_id FROM favourite WHERE user_id = $2)`
+  client.query(SQL,[req.body.type,req.user.id])
+  .then((data)=> {
+    res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user });
+  })
+  .catch(e => {
+    res.send(e);
+  });
+}
 
 
 function addToFavoriteHandler(req, res) {
