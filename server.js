@@ -72,9 +72,12 @@ app.post('/addToFavorite', checkAuthenticatied, addToFavoriteHandler);
 app.get('/favorite', checkAuthenticatied, displayFavoriteHandler);
 app.delete('/removeFromFavorite', checkAuthenticatied, removeFromFavoriteHandler);
 app.get('/books', checkAuthenticatied, bokosHandler);
-function addToFavoriteHandler(req, res){
+
+
+function addToFavoriteHandler(req, res) {
 
   let { img_url, photographer_name, photographer_id, photographer_img_url, image_type } = req.body;
+  let x = [img_url, photographer_name, photographer_id, photographer_img_url, image_type]
 
   let SQL = `SELECT * FROM images WHERE img_url=$1;`
 
@@ -88,11 +91,10 @@ function addToFavoriteHandler(req, res){
             res.redirect('/favorite');
           })
       } else {
-        let newSQL = `INSERT INTO images (img_url, photographer_name, photographer_id, photographer_img_url, image_type) VALUES ($1, $2, $3, $4, $5) RETURNING id;`
+        let newSQL = `INSERT INTO images (img_url, photographer_name, photographer_id, photographer_img_url, image_type) VALUES ($1, $2, $3, $4, $5) RETURNING *;`
         client.query(newSQL, [img_url, photographer_name, photographer_id, photographer_img_url, image_type])
           .then((results) => {
             let SQL2 = `INSERT INTO favourite (user_id, img_id) VALUES ($1, $2) ON CONFLICT (user_id, img_id) DO NOTHING;`
-
             client.query(SQL2, [req.user.id, results.rows[0].id])
               .then(() => {
                 res.redirect('/favorite');
@@ -103,27 +105,28 @@ function addToFavoriteHandler(req, res){
 
 }
 
-function displayFavoriteHandler(req, res){
+function displayFavoriteHandler(req, res) {
   let SQL = 'SELECT * FROM images WHERE id IN (SELECT img_id FROM favourite WHERE user_id = $1)';
   client.query(SQL, [req.user.id])
-  .then((data) => {
-    res.render('userFavorite', {LoggedIn: true, favs: data.rows, user: req.user});
-  })
-  .catch(e =>{
-    res.send(e);
-  });
+    .then((data) => {
+      console.log(data.rows);
+      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user });
+    })
+    .catch(e => {
+      res.send(e);
+    });
 }
 
 
-function removeFromFavoriteHandler(req, res){
+function removeFromFavoriteHandler(req, res) {
   let SQL = 'DELETE FROM favourite WHERE user_id =$1 and img_id = $2';
   client.query(SQL, [req.user.id, req.body.image_id])
-  .then(() => {
-    res.redirect('/favorite');
-  })
-  .catch(e =>{
-    res.send(e);
-  });
+    .then(() => {
+      res.redirect('/favorite');
+    })
+    .catch(e => {
+      res.send(e);
+    });
 }
 
 function homeHandler(req, res) {
@@ -135,7 +138,7 @@ function homeHandler(req, res) {
   }
 }
 
-function coursesHandler(req, res){
+function coursesHandler(req, res) {
   let URL = `https://www.udemy.com/api-2.0/courses/?category=Photography+%26+Video&page=1&page_size=12&price=price-free`;
   superagent(URL)
     .set('Authorization', `Basic ${Buffer.from(`${process.env.UDEMEM_CLIENT}:${process.env.UDEMEY_SECRET}`).toString('base64')}`)
@@ -229,7 +232,7 @@ async function registerUserInDBHandler(req, res) {
   }
 }
 
-function bokosHandler(req, res){
+function bokosHandler(req, res) {
   let url = `https://www.googleapis.com/books/v1/volumes?q=Photography`
   superagent(url)
     .then((data) => {
@@ -247,11 +250,11 @@ function bokosHandler(req, res){
     })
 }
 
-function imagesSearchHandler(req, res){
+function imagesSearchHandler(req, res) {
   let key = process.env.PIXABAY;
   let picSearch = req.body.search_query;
 
-  let URL = `https://pixabay.com/api/?key=${key}&q=${picSearch}s&image_type=photo&pretty=true`;
+  let URL = `https://pixabay.com/api/?key=${key}&q=${picSearch}`;
   if (req.body.color !== 'none') {
     URL += `&colors=${req.body.color}`
   }

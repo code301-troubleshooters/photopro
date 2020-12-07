@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
     <%- include('./components/header') %>
     <main>
         <%favs.forEach(fav =>{%>
-            <div>
-    
-                <img src="<%=fav.img_url%>" alt="">
-                <a href="https://pixabay.com/users/<%=fav.photographerName%>-<%=fav.photographerID%>"><%=fav.photographerName%></a>
-                <img src="<%=fav.photographerImg%>" alt="">
-                
-                <% if(LoggedIn){ %>
-                <form action="/removeFromFavorite?_method=delete" method="post">
-                    <input type="hidden" name="image_id" value="<%=fav.id%>">
-                    <button>Remove from Favorite</button>
-                </form>
-                <% } %>
-            </div>
-            <%})%>
+        <div>
+
+            <img src="<%=fav.img_url%>" alt="">
+            <p><%=fav.image_type%></p>
+            <a href="https://pixabay.com/users/<%=fav.photographer_name%>-<%=fav.photographer_id%>"><%=fav.photographer_name%></a>
+            <img src="<%=fav.photographer_img_url%>" alt="">
+
+            <% if(LoggedIn){ %>
+            <form action="/removeFromFavorite?_method=delete" method="post">
+                <input type="hidden" name="image_id" value="<%=fav.id%>">
+                <button>Remove from Favorite</button>
+            </form>
+            <% } %>
+        </div>
+        <%})%>
+
     </main>
 </body>
+
 </html>
