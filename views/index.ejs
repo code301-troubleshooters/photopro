@@ -1,46 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('./components/header') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
 
-<body>
-    <header>
+<main>
 
-        <%- include('./components/header') %>
 
-    </header>
-    <main>
-        <h1>Homepage</h1>
-        <% if(LoggedIn){ %>
-        <h1>Welcome, <%= user.name %></h1>
-        <% } else{ %>
-        <h1>Welcome, User</h1>
-        <% } %>
 
-        <section class="main-banner">
+    <section class="main-banner">
+        <div class="parallex">
+            
+        </div>
 
-            <div class="search-form">
-                <%- include('./components/search-form') %>
+        <div class="search-form">
+
+            <%- include('./components/search-form') %>
+
+        </div>
+    </section>
+
+    <section class="about-photopro">
+        <div class="row">
+            <div class="section-title">
+                <h3>About</h3>
+            </div>
+            <div class="section-text">
+                <p>
+                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque suscipit repudiandae aut sequi vitae
+                    inventore quas exercitationem, iure iusto perferendis odio rerum explicabo quia dolores vel beatae,
+                    veniam
+                    facere natus.
+                </p>
+            </div>
+        </div>
+    </section>
+    <section class="team">
+        <div class="row">
+            <div class="section-title">
+                <h3>Contact Us</h3>
 
             </div>
-        </section>
-        <section class="about-photopro">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque suscipit repudiandae aut sequi vitae
-            inventore quas exercitationem, iure iusto perferendis odio rerum explicabo quia dolores vel beatae, veniam
-            facere natus.
-        </section>
-        <section class="team">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quisquam soluta eveniet quo sapiente, neque
-            ut ipsam ipsa cum quam voluptatum nemo minima molestias tempore, nam corrupti libero tempora eos!
-        </section>
+            <div class="section-text">
+                <p>
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quisquam soluta eveniet quo
+                    sapiente,
+                    neque
+                    ut ipsam ipsa cum quam voluptatum nemo minima molestias tempore, nam corrupti libero tempora eos!
+                </p>
+
+            </div>
+        </div>
+    </section>
 
 
-    </main>
-    <%- include('./components/footer') %>
+</main>
+<%- include('./components/footer') %>
 </body>
 
 </html>

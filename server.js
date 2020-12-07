@@ -66,12 +66,12 @@ app.post("/users/login", checkNotAuthenticatied, passport.authenticate("local", 
   failureRedirect: "/login",
   failureFlash: true
 }));
-app.post('/imgSearches', checkAuthenticatied, imagesSearchHandler);
-app.get('/courses', checkAuthenticatied, coursesHandler);
+app.post('/imgSearches', imagesSearchHandler);
+app.get('/courses', coursesHandler);
 app.post('/addToFavorite', checkAuthenticatied, addToFavoriteHandler);
 app.get('/favorite', checkAuthenticatied, displayFavoriteHandler);
 app.delete('/removeFromFavorite', checkAuthenticatied, removeFromFavoriteHandler);
-app.get('/books', checkAuthenticatied, bokosHandler);
+app.get('/books', bokosHandler);
 app.get('/favorite/filter',checkAuthenticatied,favouriteHandler);
 function favouriteHandler (req,res){
   let SQL = `SELECT * FROM images WHERE image_type=$1 and id IN (SELECT img_id FROM favourite WHERE user_id = $2)`

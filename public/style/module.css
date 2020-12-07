@@ -1,0 +1,42 @@
+header{
+    box-shadow: 4px 4px rgb(180, 179, 179);
+    
+
+}
+.main-banner{
+    background-image:url('../images/index-banner.jpeg') ;
+    background-size: cover;
+    position: relative;   
+    background-attachment: fixed;
+    background-position: center;
+}
+.search-form{
+    width: 100%;
+  padding: 0 20%;
+  z-index: 2;
+}
+.search-input input{
+    width: 100%;
+}
+.section-title h3{
+        text-align: center;
+        font-size: 28px;
+        color: black;
+        margin-bottom: 30px;
+}
+.section-text p {
+    margin-bottom: 10px;
+    
+}
+.parallex{
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+   
+
+
+}
+
