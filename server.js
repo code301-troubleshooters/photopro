@@ -72,7 +72,6 @@ app.post('/addToFavorite', checkAuthenticatied, addToFavoriteHandler);
 app.get('/favorite', checkAuthenticatied, displayFavoriteHandler);
 app.delete('/removeFromFavorite', checkAuthenticatied, removeFromFavoriteHandler);
 
-
 function addToFavoriteHandler(req, res){
 
   let { img_url, photographer_name, photographer_id, photographer_img_url, image_type } = req.body;
@@ -83,6 +82,7 @@ function addToFavoriteHandler(req, res){
     .then((data) => {
       if (data.rows.length !== 0) {
         let SQL2 = `INSERT INTO favourite (user_id, img_id) VALUES ($1, $2)  ON CONFLICT (user_id, img_id) DO NOTHING;`
+
         client.query(SQL2, [req.user.id, data.rows[0].id])
           .then(() => {
             res.redirect('/favorite');
@@ -92,6 +92,7 @@ function addToFavoriteHandler(req, res){
         client.query(newSQL, [img_url, photographer_name, photographer_id, photographer_img_url, image_type])
           .then((results) => {
             let SQL2 = `INSERT INTO favourite (user_id, img_id) VALUES ($1, $2) ON CONFLICT (user_id, img_id) DO NOTHING;`
+
             client.query(SQL2, [req.user.id, results.rows[0].id])
               .then(() => {
                 res.redirect('/favorite');
@@ -112,6 +113,7 @@ function displayFavoriteHandler(req, res){
     res.send(e);
   });
 }
+
 
 function removeFromFavoriteHandler(req, res){
   let SQL = 'DELETE FROM favourite WHERE user_id =$1 and img_id = $2';
@@ -306,6 +308,14 @@ function Course(values) {
   this.inst_img = values.visible_instructors[0].image_100x100;
   this.inst_url = values.visible_instructors[0].url;
 
+}
+
+function Book(book) {
+  this.title = book.volumeInfo.title;
+  this.image = book.volumeInfo.imageLinks ? book.volumeInfo.imageLinks.smallThumbnail : `https://i.imgur.com/J5LVHEL.jpg`;
+  this.authors = book.volumeInfo.authors ? book.volumeInfo.authors[0] : 'Not avilabile';
+  this.description = book.volumeInfo.description ? book.volumeInfo.description : 'Not avilabile';
+  this.link = book.volumeInfo.infoLink;
 }
 
 client.connect()
