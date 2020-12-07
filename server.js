@@ -66,39 +66,76 @@ app.post("/users/login", checkNotAuthenticatied, passport.authenticate("local", 
   failureRedirect: "/login",
   failureFlash: true
 }));
+app.post('/imgSearches', checkAuthenticatied, imagesSearchHandler);
+app.get('/courses', checkAuthenticatied, coursesHandler);
+app.post('/addToFavorite', checkAuthenticatied, addToFavoriteHandler);
+app.get('/favorite', checkAuthenticatied, displayFavoriteHandler);
+app.delete('/removeFromFavorite', checkAuthenticatied, removeFromFavoriteHandler);
 
-app.post('/imgSearches', (req, res) => {
-  let key = process.env.PIXABAY;
-  let picSearch = req.body.search_query;
+function addToFavoriteHandler(req, res){
 
-  let URL = `https://pixabay.com/api/?key=${key}&q=${picSearch}s&image_type=photo&pretty=true`;
-  if (req.body.color !== 'none') {
-    URL += `&colors=${req.body.color}`
-  }
-  if (req.body.category !== 'none') {
-    URL += `&category=${req.body.category}`
-  }
-  if (req.body.type !== 'none') {
-    URL += `&image_type=${req.body.type}`
-  }
-  superagent(URL)
+  let { img_url, photographer_name, photographer_id, photographer_img_url, image_type } = req.body;
 
-    .then(imgs => {
+  let SQL = `SELECT * FROM images WHERE img_url=$1;`
 
-      let picturs = imgs.body.hits.map(img => {
-        return new Picture(img)
-      });
-      if (req.user) {
-        res.render('searchResults', { LoggedIn: true, imgs: picturs, user: req.user });
+  client.query(SQL, [img_url])
+    .then((data) => {
+      if (data.rows.length !== 0) {
+        let SQL2 = `INSERT INTO favourite (user_id, img_id) VALUES ($1, $2)  ON CONFLICT (user_id, img_id) DO NOTHING;`
+
+        client.query(SQL2, [req.user.id, data.rows[0].id])
+          .then(() => {
+            res.redirect('/favorite');
+          })
+      } else {
+        let newSQL = `INSERT INTO images (img_url, photographer_name, photographer_id, photographer_img_url, image_type) VALUES ($1, $2, $3, $4, $5) RETURNING id;`
+        client.query(newSQL, [img_url, photographer_name, photographer_id, photographer_img_url, image_type])
+          .then((results) => {
+            let SQL2 = `INSERT INTO favourite (user_id, img_id) VALUES ($1, $2) ON CONFLICT (user_id, img_id) DO NOTHING;`
+
+            client.query(SQL2, [req.user.id, results.rows[0].id])
+              .then(() => {
+                res.redirect('/favorite');
+              })
+          })
       }
-      else {
-        res.render('searchResults', { imgs: picturs, LoggedIn: false });
-      }
-    });
-});
+    })
+
+}
+
+function displayFavoriteHandler(req, res){
+  let SQL = 'SELECT * FROM images WHERE id IN (SELECT img_id FROM favourite WHERE user_id = $1)';
+  client.query(SQL, [req.user.id])
+  .then((data) => {
+    res.render('userFavorite', {LoggedIn: true, favs: data.rows, user: req.user});
+  })
+  .catch(e =>{
+    res.send(e);
+  });
+}
 
 
-app.get('/courses', (req, res) => {
+function removeFromFavoriteHandler(req, res){
+  let SQL = 'DELETE FROM favourite WHERE user_id =$1 and img_id = $2';
+  client.query(SQL, [req.user.id, req.body.image_id])
+  .then(() => {
+    res.redirect('/favorite');
+  })
+  .catch(e =>{
+    res.send(e);
+  });
+}
+
+function homeHandler(req, res) {
+  if (req.user) {
+    res.render('index', { LoggedIn: true, user: req.user })
+  }
+  else {
+    res.render('index', { LoggedIn: false })
+  }
+}
+
+function coursesHandler(req, res){
   let URL = `https://www.udemy.com/api-2.0/courses/?category=Photography+%26+Video&page=1&page_size=12&price=price-free`;
   superagent(URL)
     .set('Authorization', `Basic ${Buffer.from(`${process.env.UDEMEM_CLIENT}:${process.env.UDEMEY_SECRET}`).toString('base64')}`)
@@ -116,62 +153,6 @@ app.get('/courses', (req, res) => {
     }).catch((e) => {
       res.status(500).send(e);
     });
-});
-
-app.get('/books', (req, res) => {
-  let url = `https://www.googleapis.com/books/v1/volumes?q=Photography`
-  superagent(url)
-    .then((data) => {
-      let books = data.body.items.map(book => {
-        return new Book(book);
-      })
-      if (req.user) {
-        res.render('books', { LoggedIn: true, books: books, user: req.user })
-      }
-      else {
-        res.status(200).render('books', { LoggedIn: false, books: books });
-      }
-    }).catch((e) => {
-      res.status(500).send(e);
-
-    })
-})
-app.post('/addToFavorite', (req, res) => {
-
-  let { img_url, photographer_name, photographer_id, photographer_img_url, image_type, user_id } = req.body;
-
-  let SQL = `SELECT * FROM images WHERE img_url=$1;`
-  client.query(SQL, [img_url])
-    .then((data) => {
-      if (data.rows.length !== 0) {
-        let SQL2 = `INSERT INTO favourite (user_id, img_id) VALUES ($1, $2);`
-        client.query(SQL2, [req.user.id, data.rows[0].id])
-          .then(() => {
-            res.redirect('/favorite');
-          })
-      } else {
-        let newSQL = `INSERT INTO images (img_url, photographer_name, photographer_id, photographer_img_url, image_type) VALUES ($1, $2, $3, $4, $5) RETURNING id;`
-        console.log(req.user.id);
-        client.query(newSQL, [img_url, photographer_name, photographer_id, photographer_img_url, image_type])
-          .then((results) => {
-            let SQL2 = `INSERT INTO favourite (user_id, img_id) VALUES ($1, $2);`
-            client.query(SQL2, [req.user.id, results.rows[0].id])
-              .then(() => {
-                res.redirect('/favorite');
-              })
-          })
-      }
-    })
-
-})
-
-function homeHandler(req, res) {
-  if (req.user) {
-    res.render('index', { LoggedIn: true, user: req.user })
-  }
-  else {
-    res.render('index', { LoggedIn: false })
-  }
 }
 
 function registerUserHandler(req, res) {
@@ -220,7 +201,6 @@ async function registerUserInDBHandler(req, res) {
   }
 
   if (errors.length > 0) {
-    console.log(errors);
     res.render('register', { LoggedIn: false, err: errors });
   } else {
     let checkIfUserExists = `SELECT * FROM users WHERE email = $1`;
@@ -232,14 +212,12 @@ async function registerUserInDBHandler(req, res) {
           return client.query(SQL, values)
             .then(insertion => {
               req.flash('success_msg', `You've been registerd successfully! Please log into your account.`);
-              console.log(insertion.rows);
               res.redirect('/login');
             })
             .catch(() => {
               errorHandler('something went wrong: insertion', req, res);
             });
         } else {
-          console.log('Email exists');
           errors.push({ message: "Email already registered" });
           return res.render("register", { LoggedIn: false, err: errors });
         }
@@ -249,6 +227,36 @@ async function registerUserInDBHandler(req, res) {
       });
 
   }
+}
+
+function imagesSearchHandler(req, res){
+  let key = process.env.PIXABAY;
+  let picSearch = req.body.search_query;
+
+  let URL = `https://pixabay.com/api/?key=${key}&q=${picSearch}s&image_type=photo&pretty=true`;
+  if (req.body.color !== 'none') {
+    URL += `&colors=${req.body.color}`
+  }
+  if (req.body.category !== 'none') {
+    URL += `&category=${req.body.category}`
+  }
+  if (req.body.type !== 'none') {
+    URL += `&image_type=${req.body.type}`
+  }
+  superagent(URL)
+
+    .then(imgs => {
+
+      let picturs = imgs.body.hits.map(img => {
+        return new Picture(img)
+      });
+      if (req.user) {
+        res.render('searchResults', { LoggedIn: true, imgs: picturs, user: req.user });
+      }
+      else {
+        res.render('searchResults', { imgs: picturs, LoggedIn: false });
+      }
+    });
 }
 
 function logoutHandler(req, res) {
@@ -278,7 +286,6 @@ function checkNotAuthenticatied(req, res, next) {
   next();
 }
 
-
 function errorHandler(error, req, res) {
   res.status(500).send(error);
 }
@@ -291,6 +298,7 @@ function Picture(value) {
   this.tags = value.tags.split(', ');
   this.imgType = value.type;
 }
+
 function Course(values) {
   this.course_img = values.image_480x270;
   this.title = values.title;
