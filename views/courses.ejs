@@ -8,15 +8,28 @@
 <body>
     <%- include('./components/header') %>
     <h1>Recommended Courses</h1>
-    <main><%courses.forEach(course=>{%>
-        <div>
-            <h2><%=course.title%></h2>
-          <a href="https://www.udemy.com<%=course.course_url%>"><img src="<%=course.course_img%>" ></a>
-          <h3><%=course.disc%></h3>
-          <h3><%=course.inst%></h3>
-          <a href="https://www.udemy.com<%=course.inst_url%>"><img src="<%=course.inst_img%>" ></a>
-        </div>
-   <% })%>
+    <main>
+        <section>
+            <%courses.forEach(course=>{%>
+            <div class="course-card">
+                <div class="course-tittle">
+                    <h2><%=course.title%></h2>
+                </div>
+                <div class="course-img">
+                    <a href="https://www.udemy.com<%=course.course_url%>"><img src="<%=course.course_img%>"></a>
+                </div>
+
+                <div class="course-disc">
+                    <h3><%=course.disc%></h3>
+                </div>
+                <div class="course-inst">
+                    <h3><%=course.inst%></h3>
+                    <a href="https://www.udemy.com<%=course.inst_url%>"><img src="<%=course.inst_img%>"></a>
+                </div>
+            </div>
+            <% })%>
+        </section>
     </main>
+    <%- include('./components/footer') %>
 </body>
 </html>
