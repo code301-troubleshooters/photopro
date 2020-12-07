@@ -71,7 +71,7 @@ app.get('/courses', checkAuthenticatied, coursesHandler);
 app.post('/addToFavorite', checkAuthenticatied, addToFavoriteHandler);
 app.get('/favorite', checkAuthenticatied, displayFavoriteHandler);
 app.delete('/removeFromFavorite', checkAuthenticatied, removeFromFavoriteHandler);
-
+app.get('/books', checkAuthenticatied, bokosHandler);
 function addToFavoriteHandler(req, res){
 
   let { img_url, photographer_name, photographer_id, photographer_img_url, image_type } = req.body;
@@ -227,6 +227,24 @@ async function registerUserInDBHandler(req, res) {
       });
 
   }
+}
+
+function bokosHandler(req, res){
+  let url = `https://www.googleapis.com/books/v1/volumes?q=Photography`
+  superagent(url)
+    .then((data) => {
+      let books = data.body.items.map(book => {
+        return new Book(book);
+      })
+      if (req.user) {
+        res.render('books', { LoggedIn: true, books: books, user: req.user })
+      }
+      else {
+        res.status(200).render('books', { LoggedIn: false, books: books });
+      }
+    }).catch((e) => {
+      res.status(500).send(e);
+    })
 }
 
 function imagesSearchHandler(req, res){
