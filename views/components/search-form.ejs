@@ -1,53 +1,57 @@
 <form action="/imgSearches" method="POST">
-    <input type="text" name="search_query" placeholder="GET INSPIRATION">
-    <select name="color" id="">
-        <option value="none" selected>All</option>
-        <option value="grayscale">grayscale</option>
-        <option value="transparent">transparent</option>
-        <option value="red">red</option>
-        <option value="orange">orange</option>
-        <option value="yellow">yellow</option>
-        <option value="green">green</option>
-        <option value="turquoise">turquoise</option>
-        <option value="blue">blue</option>
-        <option value="lilac">lilac</option>
-        <option value="pink">pink</option>
-        <option value="white">white</option>
-        <option value="gray">gray</option>
-        <option value="black">black</option>
-        <option value="brown">brown</option>
-    </select>
+    <div class="search-input">
+        <input type="text" name="search_query" placeholder="GET INSPIRATION">
+    </div>
+    <div class="search-select">
+        <select name="color" id="">
+            <option value="none" selected>All</option>
+            <option value="grayscale">grayscale</option>
+            <option value="transparent">transparent</option>
+            <option value="red">red</option>
+            <option value="orange">orange</option>
+            <option value="yellow">yellow</option>
+            <option value="green">green</option>
+            <option value="turquoise">turquoise</option>
+            <option value="blue">blue</option>
+            <option value="lilac">lilac</option>
+            <option value="pink">pink</option>
+            <option value="white">white</option>
+            <option value="gray">gray</option>
+            <option value="black">black</option>
+            <option value="brown">brown</option>
+        </select>
 
-    <select name="category" id="">
-        <option value="none" selected>All</option>
-        <option value="backgrounds">backgrounds</option>
-        <option value="fashion">fashion</option>
-        <option value="nature">nature</option>
-        <option value="science">science</option>
-        <option value="education">education</option>
-        <option value="feelings">feelings</option>
-        <option value="health">health</option>
-        <option value="people">people</option>
-        <option value="religion">religion</option>
-        <option value="places">places</option>
-        <option value="animals">animals</option>
-        <option value="industry">industry</option>
-        <option value="computer">computer</option>
-        <option value="food">food</option>
-        <option value="sports">sports</option>
-        <option value="transportation">transportation</option>
-        <option value="travel">travel</option>
-        <option value="buildings">buildings</option>
-        <option value="business">business</option>
-        <option value="music">music</option>
-    </select>
-    <select name="type" id="">
-        <option value="none" selected>All</option>
-        <option value="photo">photo</option>
-        <option value="illustration">illustration</option>
-        <option value="vector">vector</option>
-    </select>
-
-    <input type="submit" value="Submit">
-
+        <select name="category" id="">
+            <option value="none" selected>All</option>
+            <option value="backgrounds">backgrounds</option>
+            <option value="fashion">fashion</option>
+            <option value="nature">nature</option>
+            <option value="science">science</option>
+            <option value="education">education</option>
+            <option value="feelings">feelings</option>
+            <option value="health">health</option>
+            <option value="people">people</option>
+            <option value="religion">religion</option>
+            <option value="places">places</option>
+            <option value="animals">animals</option>
+            <option value="industry">industry</option>
+            <option value="computer">computer</option>
+            <option value="food">food</option>
+            <option value="sports">sports</option>
+            <option value="transportation">transportation</option>
+            <option value="travel">travel</option>
+            <option value="buildings">buildings</option>
+            <option value="business">business</option>
+            <option value="music">music</option>
+        </select>
+        <select name="type" id="">
+            <option value="none" selected>All</option>
+            <option value="photo">photo</option>
+            <option value="illustration">illustration</option>
+            <option value="vector">vector</option>
+        </select>
+    </div>
+    <div class="search-butten">
+        <input type="submit" value="Search">
+    </div>
 </form>
