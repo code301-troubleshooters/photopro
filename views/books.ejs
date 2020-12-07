@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books</title>
+</head>
+<body>
+
+    <main>
+        <%books.forEach(val =>{%>
+                <h4 ><%=val.title%></h4>
+               <a href="<%=val.link%>"><img src="<%=val.image%>"></a>
+                 <h5 ><%=val.authors%></h5>
+                 <p><%=val.description%></p>
+                 <%})%>
+    </main>
+</body>
+</html>
