@@ -7,8 +7,8 @@ $(window).scroll(function () {
 });
 
 
-$('#navDropdown').mouseenter(function(){
+/*$('#navDropdown').mouseenter(function(){
     $('#navDropdown').find('#navDropdownLinks').removeClass('hidden');
 }).mouseleave(function(){
     $('#navDropdown').find('#navDropdownLinks').addClass('hidden');
-});
+});*/

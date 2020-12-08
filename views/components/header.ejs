@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><%=  pageName %></title>
     <link rel="stylesheet" href="./style/base.css">
 </head>
 
 <body>
+    <% if(pageName === 'PhotoPro: Home'){ %>
     <header class="index-header">
+        <%} else{ %>
+            <header class="">
+        <% } %>
         <nav>
             <div class="logo">
                 <h1>PhotoPro Logo</h1>
@@ -17,8 +21,8 @@
             <div class="nav-bar">
                 <a class="nav-link" href="/">Home</a>
                 <div class="nav-dropdown" id="navDropdown">
-                    <a>Recommendations</a>
-                    <div class="nav-dropdown-links hidden" id="navDropdownLinks">
+                    <a class="nav-link"> Recommendations</a>
+                    <div class="nav-dropdown-links" id="navDropdownLinks">
                         <div class="inner-div">
                             <a class="nav-link" href="/courses">Courses</a>
                             <a class="nav-link" href="/books">Books</a>
