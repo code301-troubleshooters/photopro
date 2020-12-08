@@ -11,6 +11,7 @@ const passport = require('passport');
 const methodOverride = require('method-override');
 const superagent = require('superagent');
 require('dotenv').config();
+const natgeo = require('national-geographic-api').NationalGeographicAPI;
 
 const client = new pg.Client(process.env.DATABASE_URL);
 
@@ -140,15 +141,20 @@ function removeFromFavoriteHandler(req, res) {
     });
 }
 
-function homeHandler(req, res) {
+async function homeHandler(req, res) {
+  let pictureOfTheDay = await natgeo.getPhotoOfDay(`DAY` , `CALLBACK`)
+  .then((result) => {
+    return result.data[0].attributes;
+  });
+  let potd = new PictureOfTheDay(pictureOfTheDay); 
+  console.log(potd);
   if (req.user) {
-    res.render('index', { LoggedIn: true, user: req.user })
+    res.render('index', { LoggedIn: true, user: req.user, pictureOfTheDay: potd})
   }
   else {
-    res.render('index', { LoggedIn: false })
+    res.render('index', { LoggedIn: false, pictureOfTheDay: potd })
   }
 }
-
 function coursesHandler(req, res) {
   let URL = `https://www.udemy.com/api-2.0/courses/?category=Photography+%26+Video&page=1&page_size=12&price=price-free`;
   superagent(URL)
@@ -348,6 +354,14 @@ function Book(book) {
   this.authors = book.volumeInfo.authors ? book.volumeInfo.authors[0] : 'Not avilabile';
   this.description = book.volumeInfo.description ? book.volumeInfo.description : 'Not avilabile';
   this.link = book.volumeInfo.infoLink;
+}
+
+function PictureOfTheDay(data){
+  this.url = data.image.uri;
+  this.title = data.image.title;
+  this.caption = data.image.caption;
+  this.credit= data.image.credit;
+  this.date = `${new Date().toLocaleString('default', { month: 'long'})} ${new Date().getDate()}, ${new Date().getFullYear()}`;
 }
 
 client.connect()

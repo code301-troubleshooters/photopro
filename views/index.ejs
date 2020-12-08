@@ -2,18 +2,45 @@
 
 
 <main>
-
-
-
     <section class="main-banner">
         <div class="parallex">
-            
         </div>
-
+        <div class="row">
+            <div class="search-form-title">
+                <h3>I don’t trust words. I trust pictures</h3>
+            </div>
         <div class="search-form">
-
             <%- include('./components/search-form') %>
+        </div>
+    </div>
+    </section>
 
+    <section class="potd=-section">
+        <div class="row">
+            <div class="potd-card">
+            <div class="potd-info">
+                <div class="section-title">
+                    <h3>
+                        PHOTO OF THE DAY
+                    </h3>
+                </div>
+                <div class="potd-date">
+                    <h4><%= pictureOfTheDay.date %></h4>
+                </div>
+                <div class="potd-title">
+                    <h3><%= pictureOfTheDay.title %></h3>
+                </div>
+                <div class="potd-caption">
+                    <p><%= pictureOfTheDay.caption %></p>
+                </div>
+                <div class="potd-credit">
+                    <h4><%= pictureOfTheDay.credit %></h4>
+                </div>
+            </div>
+            <div class="potd-img">
+                <img src="<%= pictureOfTheDay.url %>" alt="<%= pictureOfTheDay.title %>">
+            </div>
+        </div>
         </div>
     </section>
 
@@ -24,35 +51,109 @@
             </div>
             <div class="section-text">
                 <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Eaque suscipit repudiandae aut sequi vitae
-                    inventore quas exercitationem, iure iusto perferendis odio rerum explicabo quia dolores vel beatae,
-                    veniam
-                    facere natus.
+                  <span class="photopro">PhotoPro</span> inspires photographers for their next shots by searching for images by category, color, and type of the photo. PhotoPro gets their iamges using <a href="https://pixabay.com/">Pixabay</a> API. Here is what PhotoPro offers:
                 </p>
+            </div>
+            <div class="about-cards">
+                <div class="about-card">
+                    <div class="about-card-img">
+                        <img src="./images/tag.png">
+                    </div>
+                    <div class="about-card-title">
+                        <h4>100% Free <br>of Charge</h4>
+                        <hr>
+                    </div>
+                    <div class="about-card-text">
+                        <p><span class="photopro">PhotoPro</span> is completely free of charge. Enjoy browsing images ang get inspired!</p>
+                    </div>
+                </div>
+                <div class="about-card">
+                    <div class="about-card-img">
+                        <img src="./images/education.png">
+                    </div>
+                    <div class="about-card-title">
+                        <h4>Photography Recommendations</h4>
+                        <hr>
+                    </div>
+                    <div class="about-card-text">
+                        <p>On <span class="photopro">PhotoPro</span>, you can find free photography courses on Udemy, and photography-related books on Google Play store.</p>
+                    </div>
+                </div>
+                <div class="about-card">
+                    <div class="about-card-img">
+                        <img src="./images/favourite.png">
+                    </div>
+                    <div class="about-card-title">
+                        <h4>Save Your Favurite
+                            <br>Images</h4>
+                        <hr>
+                    </div>
+                    <div class="about-card-text">
+                        <p>When you create an account on <span class="photopro">PhotoPro</span>, you can save images to your favorite list and view them again whenever you want!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
+
     <section class="team">
         <div class="row">
             <div class="section-title">
-                <h3>Contact Us</h3>
-
+                <h3>Team</h3>
             </div>
             <div class="section-text">
                 <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus quisquam soluta eveniet quo
-                    sapiente,
-                    neque
-                    ut ipsam ipsa cum quam voluptatum nemo minima molestias tempore, nam corrupti libero tempora eos!
+                    <span class="photopro">PhotoPro</span> is bulid by a team called <span class="photopro">The Troubleshooters</span>. This team was assembled during Code 301 course at LTUC’s Abdul Aziz Al Ghurair School of Advanced Computing (ASAC) in Amman, Jordan.<br>Meet <span class="photopro">The Troubleshooters</span>:
                 </p>
+            </div>
+            <div class="team-members">
 
+                <div class="team-member">
+                <div class="team-member-img">
+                    <img src="./images/avatar.jpg">
+                </div>
+                <div class="team-member-name">
+                    <h4>Hanaa Al Ghazzi</h4>
+                </div>
+                <div class="team-member-text">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, libero nulla. Eligendi fugiat vel deserunt dicta, nostrum totam facere voluptate, autem quia vitae nobis ab dolores aut ut aspernatur praesentium.</p>
+                </div>
+                <div class="team-member-contact">
+                    <a href="mailto:example@gmail.com">example@gmail.com</a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-member-img">
+                    <img src="./images/avatar.jpg">
+                </div>
+                <div class="team-member-name">
+                    <h4>Adnan Alshibli</h4>
+                </div>
+                <div class="team-member-text">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, libero nulla. Eligendi fugiat vel deserunt dicta, nostrum totam facere voluptate, autem quia vitae nobis ab dolores aut ut aspernatur praesentium.</p>
+                </div>
+                <div class="team-member-contact">
+                    <a href="mailto:example@gmail.com">example@gmail.com</a>
+                </div>
+            </div>
+            <div class="team-member">
+                <div class="team-member-img">
+                    <img src="./images/avatar.jpg">
+                </div>
+                <div class="team-member-name">
+                    <h4>Husam Ajour</h4>
+                </div>
+                <div class="team-member-text">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, libero nulla. Eligendi fugiat vel deserunt dicta, nostrum totam facere voluptate, autem quia vitae nobis ab dolores aut ut aspernatur praesentium.</p>
+                </div>
+                <div class="team-member-contact">
+                    <a href="mailto:example@gmail.com">example@gmail.com</a>
+                </div>
+            </div>
+            
             </div>
         </div>
     </section>
 
-
 </main>
 <%- include('./components/footer') %>
-</body>
-
-</html>
