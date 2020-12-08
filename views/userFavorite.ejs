@@ -1,53 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('./components/header') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-    <%- include('./components/header') %>
-    <main>
-        <section>
-            <form action="/favorite/filter" class="filter-form">
-                <select name="type" id="">
-                    <option value="none" selected>All</option>
-                    <option value="photo">photo</option>
-                    <option value="illustration">illustration</option>
-                    <option value="vector">vector</option>
-                </select>
-            
-                <input type="submit" value="Submit">
-            
-            </form>
-        </section>
-        <section>
-        <%favs.forEach(fav =>{%>
-            <div class="img-details-cards">
-            <div class="img-details-img">
-
-
-            <img src="<%=fav.img_url%>" alt="">
-            </div>
-          <div class="img-details-type">  <p><%=fav.image_type%></p></div>
-            <div class="img-details-photographer">
-            <a href="https://pixabay.com/users/<%=fav.photographer_name%>-<%=fav.photographer_id%>"><%=fav.photographer_name%></a>
-            <img src="<%=fav.photographer_img_url%>" alt="">
-              </div>
-            <% if(LoggedIn){ %>
-            <form action="/removeFromFavorite?_method=delete" method="post">
-                <input type="hidden" name="image_id" value="<%=fav.id%>">
-                <button>Remove from Favorite</button>
-            </form>
-            <% } %>
-        </div>
-        <%})%>
+<main>
+    <section class="first-section">
+        <form action="/favorite" method="POST" class="filter-form">
+            <select name="type" id="">
+                <option value="none" selected>All</option>
+                <option value="photo">photo</option>
+                <option value="illustration">illustration</option>
+                <option value="vector">vector</option>
+            </select>
+            <input type="submit" value="Submit">
+        </form>
     </section>
-    </main>
-    <%- include('./components/footer') %>
 
-</body>
+    <section class="search-results">
+        <div class="row">
+            <div class="search-results-cards">
 
-</html>
+                <%favs.forEach(fav =>{%>
+                <div class="img-details-cards search-result-card">
+                    <div class="img-details-img">
+                        <img src="<%=fav.img_url%>" alt="">
+                    </div>
+                    <div class="img-related-info">
+                        <div class="img-details-type">
+                            <p><%=fav.image_type%></p>
+                        </div>
+                        <div class="photographer-details">
+                            <div class="photographer-details-img">
+                                <% if(fav.photographer_img_url !== '') { %>
+                                <img src="<%= fav.photographer_img_url%>" alt="">
+                                <% }else{ %>
+                                <img src="./images/avatar.jpg" alt="">
+                                <% } %>
+                            </div>
+                            <div class="photographer-details-name">
+                                <a
+                                    href="https://pixabay.com/users/<%=fav.photographer_name%>-<%=fav.photographer_id%>"><%=fav.photographer_name%></a>
+
+                            </div>
+                        </div>
+                        <form action="/removeFromFavorite?_method=delete" method="post">
+                            <input type="hidden" name="image_id" value="<%=fav.id%>">
+                            <button>Remove from Favorite</button>
+                        </form>
+                    </div>
+                </div>
+                <%})%>
+            </div>
+    </section>
+</main>
+<%- include('./components/footer') %>

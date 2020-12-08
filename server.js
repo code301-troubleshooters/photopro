@@ -72,12 +72,14 @@ app.post('/addToFavorite', checkAuthenticatied, addToFavoriteHandler);
 app.get('/favorite', checkAuthenticatied, displayFavoriteHandler);
 app.delete('/removeFromFavorite', checkAuthenticatied, removeFromFavoriteHandler);
 app.get('/books', bokosHandler);
-app.get('/favorite/filter', checkAuthenticatied, favouriteHandler);
+app.post('/favorite', checkAuthenticatied, favouriteHandler);
+
+
 function favouriteHandler(req, res) {
   let SQL = `SELECT * FROM images WHERE image_type=$1 and id IN (SELECT img_id FROM favourite WHERE user_id = $2)`
   client.query(SQL, [req.body.type, req.user.id])
     .then((data) => {
-      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user });
+      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user, pageName: 'Favourite List' });
     })
     .catch(e => {
       res.send(e);
@@ -121,7 +123,7 @@ function displayFavoriteHandler(req, res) {
   client.query(SQL, [req.user.id])
     .then((data) => {
       console.log(data.rows);
-      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user });
+      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user, pageName: 'Favourtie List'});
     })
     .catch(e => {
       res.send(e);
@@ -193,12 +195,7 @@ function loginUserHandler(req, res) {
 }
 
 function dashboardHandler(req, res) {
-  if (req.user) {
     res.redirect('/');
-  }
-  else {
-    res.redirect('/');
-  }
 }
 
 async function registerUserInDBHandler(req, res) {
