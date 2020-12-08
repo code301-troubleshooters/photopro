@@ -1,58 +1,59 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('./components/header') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../style/base.css">
-</head>
-
-<body>
-    <%- include('./components/header') %>
-
-    <main>
-        <section>
-        <div>
+<main>
+    <section class="search-results-search-form first-section">
             <%- include('./components/search-form') %>
-        </div>            
-        </section>
-        <section>
-        <%imgs.forEach(img =>{%>
-        <div class="img-details-cards">
-            <div>
-            <img src="<%=img.img_url%>" alt="">
-            </div>
-            <div class="img-tags">
-            <ul>
-                <%img.tags.forEach(tag =>{%>
-                <li><%=tag%></li>
-                <%})%>
-            </ul>
-              </div>
-            <div class="photographer-details">
-            <a
-                href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><%=img.photographerName%></a>
-            <img src="<%=img.photographerImg%>" alt="">
-            </div>
-
-            <% if(LoggedIn){ %>
-            <form action="/addToFavorite" method="post">
-                <input type="hidden" value="<%=img.img_url%>" name="img_url">
-                <input type="hidden" value="<%=img.photographerName%>" name="photographer_name">
-                <input type="hidden" value="<%=img.photographerID%>" name="photographer_id">
-                <input type="hidden" value="<%=img.photographerImg%>" name="photographer_img_url">
-                <input type="hidden" value="<%=img.imgType%>" name="image_type">
-                <!-- <input type="hidden" value="<%=user.id%>" name="userId"> -->
-                <button>Add to favorite</button>
-            </form>
-            <% } %>
         </div>
-        <%})%>
     </section>
-    </main>
-    <%- include('./components/footer') %>
 
-</body>
+    <section class="search-results">
+        <div class="row">
+            <div class="search-results-cards">
 
-</html>
+                <%imgs.forEach(img =>{%>
+                <div class="img-details-cards search-result-card">
+                    <div class="img-details-img">
+                        <img src="<%=img.img_url%>" alt="">
+                    </div>
+                    <div class="img-related-info">
+                        <div class="img-tags">
+                            <ul>
+                                <%img.tags.forEach(tag =>{%>
+                                <li><%=tag%></li>
+                                <%})%>
+                            </ul>
+                        </div>
+                        <div class="photographer-details">
+                            <div class="photographer-details-img">
+                                <% if(img.photographerImg !== '') { %>
+                                <img src="<%=img.photographerImg%>" alt="">
+                                <% }else{ %>
+                                    <img src="./images/avatar.jpg" alt="">
+                                    <% } %>
+                            </div>
+                            <div class="photographer-details-name">
+                                <a
+                                    href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><%=img.photographerName%></a>
+                            </div>
+                        </div>
+                        <% if(LoggedIn){ %>
+                        <div class="add-favourite-form">
+
+                            <form action="/addToFavorite" method="post">
+                                <input type="hidden" value="<%=img.img_url%>" name="img_url">
+                                <input type="hidden" value="<%=img.photographerName%>" name="photographer_name">
+                                <input type="hidden" value="<%=img.photographerID%>" name="photographer_id">
+                                <input type="hidden" value="<%=img.photographerImg%>" name="photographer_img_url">
+                                <input type="hidden" value="<%=img.imgType%>" name="image_type">
+                                <button>Add to favorite</button>
+                            </form>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                <%})%>
+            </div>
+        </div>
+    </section>
+</main>
+<%- include('./components/footer') %>
