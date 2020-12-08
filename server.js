@@ -55,7 +55,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use(methodOverride('_method'));
-
 app.get('/', homeHandler);
 app.get('/register', checkNotAuthenticatied, registerUserHandler);
 app.get('/login', checkNotAuthenticatied, loginUserHandler);
@@ -73,16 +72,16 @@ app.post('/addToFavorite', checkAuthenticatied, addToFavoriteHandler);
 app.get('/favorite', checkAuthenticatied, displayFavoriteHandler);
 app.delete('/removeFromFavorite', checkAuthenticatied, removeFromFavoriteHandler);
 app.get('/books', bokosHandler);
-app.get('/favorite/filter',checkAuthenticatied,favouriteHandler);
-function favouriteHandler (req,res){
+app.get('/favorite/filter', checkAuthenticatied, favouriteHandler);
+function favouriteHandler(req, res) {
   let SQL = `SELECT * FROM images WHERE image_type=$1 and id IN (SELECT img_id FROM favourite WHERE user_id = $2)`
-  client.query(SQL,[req.body.type,req.user.id])
-  .then((data)=> {
-    res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user });
-  })
-  .catch(e => {
-    res.send(e);
-  });
+  client.query(SQL, [req.body.type, req.user.id])
+    .then((data) => {
+      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user });
+    })
+    .catch(e => {
+      res.send(e);
+    });
 }
 
 
@@ -142,17 +141,17 @@ function removeFromFavoriteHandler(req, res) {
 }
 
 async function homeHandler(req, res) {
-  let pictureOfTheDay = await natgeo.getPhotoOfDay(`DAY` , `CALLBACK`)
-  .then((result) => {
-    return result.data[0].attributes;
-  });
-  let potd = new PictureOfTheDay(pictureOfTheDay); 
+  let pictureOfTheDay = await natgeo.getPhotoOfDay(`DAY`, `CALLBACK`)
+    .then((result) => {
+      return result.data[0].attributes;
+    });
+  let potd = new PictureOfTheDay(pictureOfTheDay);
   console.log(potd);
   if (req.user) {
-    res.render('index', { LoggedIn: true, user: req.user, pictureOfTheDay: potd})
+    res.render('index', { LoggedIn: true, user: req.user, pictureOfTheDay: potd, pageName: 'PhotoPro: Home' })
   }
   else {
-    res.render('index', { LoggedIn: false, pictureOfTheDay: potd })
+    res.render('index', { LoggedIn: false, pictureOfTheDay: potd, pageName: 'PhotoPro: Home' })
   }
 }
 function coursesHandler(req, res) {
@@ -165,10 +164,10 @@ function coursesHandler(req, res) {
 
       });
       if (req.user) {
-        res.render('courses', { LoggedIn: true, courses: courses, user: req.user })
+        res.render('courses', { LoggedIn: true, courses: courses, user: req.user, pageName: 'Recommended Courses' })
       }
       else {
-        res.status(200).render('courses', { LoggedIn: false, courses: courses });
+        res.status(200).render('courses', { LoggedIn: false, courses: courses, pageName: 'Recommended Courses' });
       }
     }).catch((e) => {
       res.status(500).send(e);
@@ -177,28 +176,28 @@ function coursesHandler(req, res) {
 
 function registerUserHandler(req, res) {
   if (req.user) {
-    res.render('register', { LoggedIn: true, name: req.user })
+    res.render('register', { LoggedIn: true, name: req.user,pageName: 'Register' })
   }
   else {
-    res.render('register', { LoggedIn: false });
+    res.render('register', { LoggedIn: false, pageName: 'Register' });
   }
 }
 
 function loginUserHandler(req, res) {
   if (req.user) {
-    res.render('login', { LoggedIn: true, name: req.user })
+    res.render('login', { LoggedIn: true, name: req.user, pageName: 'Login' })
   }
   else {
-    res.render('login', { LoggedIn: false });
+    res.render('login', { LoggedIn: false, pageName: 'Login' });
   }
 }
 
 function dashboardHandler(req, res) {
   if (req.user) {
-    res.render('dashboard', { LoggedIn: true, user: req.user })
+    res.render('dashboard', { LoggedIn: true, user: req.user, pageName: 'Dashboard' })
   }
   else {
-    res.render('dashboard', { LoggedIn: false });
+    res.render('dashboard', { LoggedIn: false,  pageName: 'Dashboard' });
   }
 }
 
@@ -239,7 +238,7 @@ async function registerUserInDBHandler(req, res) {
             });
         } else {
           errors.push({ message: "Email already registered" });
-          return res.render("register", { LoggedIn: false, err: errors });
+          return res.render("register", { LoggedIn: false, err: errors,  pageName: 'Register' });
         }
       })
       .catch(() => {
@@ -257,10 +256,10 @@ function bokosHandler(req, res) {
         return new Book(book);
       })
       if (req.user) {
-        res.render('books', { LoggedIn: true, books: books, user: req.user })
+        res.render('books', { LoggedIn: true, books: books, user: req.user,  pageName: 'Recommended Books' })
       }
       else {
-        res.status(200).render('books', { LoggedIn: false, books: books });
+        res.status(200).render('books', { LoggedIn: false, books: books,  pageName: 'Recommended Books' });
       }
     }).catch((e) => {
       res.status(500).send(e);
@@ -282,19 +281,18 @@ function imagesSearchHandler(req, res) {
     URL += `&image_type=${req.body.type}`
   }
   superagent(URL)
-
-    .then(imgs => {
-
-      let picturs = imgs.body.hits.map(img => {
-        return new Picture(img)
-      });
-      if (req.user) {
-        res.render('searchResults', { LoggedIn: true, imgs: picturs, user: req.user });
-      }
-      else {
-        res.render('searchResults', { imgs: picturs, LoggedIn: false });
-      }
+  .then(imgs => {
+    let picturs = imgs.body.hits.map(img => {
+      return new Picture(img);
     });
+    console.log(picturs);
+    if (req.user) {
+      res.render('searchResults', { LoggedIn: true, imgs: picturs, user: req.user,  pageName: 'Search Results' });
+    }
+    else {
+      res.render('searchResults', { imgs: picturs, LoggedIn: false, pageName: 'Search Results'  });
+    }
+  });
 }
 
 function logoutHandler(req, res) {
@@ -356,12 +354,12 @@ function Book(book) {
   this.link = book.volumeInfo.infoLink;
 }
 
-function PictureOfTheDay(data){
+function PictureOfTheDay(data) {
   this.url = data.image.uri;
   this.title = data.image.title;
   this.caption = data.image.caption;
-  this.credit= data.image.credit;
-  this.date = `${new Date().toLocaleString('default', { month: 'long'})} ${new Date().getDate()}, ${new Date().getFullYear()}`;
+  this.credit = data.image.credit;
+  this.date = `${new Date().toLocaleString('default', { month: 'long' })} ${new Date().getDate()}, ${new Date().getFullYear()}`;
 }
 
 client.connect()
