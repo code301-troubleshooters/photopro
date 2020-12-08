@@ -9,24 +9,31 @@
 </head>
 
 <body>
-    <header>
+    <header class="index-header">
         <nav>
             <div class="logo">
                 <h1>PhotoPro Logo</h1>
             </div>
-
             <div class="nav-bar">
-                <a href="/">Home</a>
-                <a href="/courses">Courses</a>
-                <a href="/books">Books</a>
+                <a class="nav-link" href="/">Home</a>
+                <div class="nav-dropdown" id="navDropdown">
+                    <a>Recommendations</a>
+                    <div class="nav-dropdown-links hidden" id="navDropdownLinks">
+                        <div class="inner-div">
+                            <a class="nav-link" href="/courses">Courses</a>
+                            <a class="nav-link" href="/books">Books</a>
+                        </div>
+                    </div>
+                </div>
+               
                 <% if(!LoggedIn) {%>
-                <a href="/register">Register</a>
-                <a href="/login">Login</a>
+                <a class="nav-link login-btn" href="/register">Register</a>
+                <a class="nav-link login-btn" href="/login">Login</a>
                 <% } else{%>
-                <h3>Welcome, <%=user.name%></h3>
-                <a href="/favorite">Favorite List</a>
+                <a class="nav-link">Welcome, <%=user.name%></a>
+                <a class="nav-link" href="/favorite">Favorite List</a>
                 <form action="/logout?_method=delete" method="POST">
-                    <button type="submit">Logout</button>
+                    <button class="nav-link login-btn" type="submit">Logout</button>
                 </form>
                 <% } %>
             </div>

@@ -1,42 +1,202 @@
-header{
-    box-shadow: 4px 4px rgb(180, 179, 179);
-    
+.index-header {
+    background-color: transparent;
+    color: #fff;
 
 }
-.main-banner{
-    background-image:url('../images/index-banner.jpeg') ;
+.main-banner {
+    background-image: url('../images/index-banner.jpeg');
     background-size: cover;
-    position: relative;   
+    position: relative;
     background-attachment: fixed;
     background-position: center;
 }
-.search-form{
-    width: 100%;
-  padding: 0 20%;
-  z-index: 2;
+.main-banner .row {
+    z-index: 2;
 }
-.search-input input{
-    width: 100%;
-}
-.section-title h3{
-        text-align: center;
-        font-size: 28px;
-        color: black;
-        margin-bottom: 30px;
+.section-title h3 {
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 30px;
+    color: black;
+    margin-bottom: 30px;
 }
 .section-text p {
     margin-bottom: 10px;
-    
 }
-.parallex{
+.parallex {
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.6);
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-   
-
-
 }
 
+.search-input input:focus {
+    outline: 0;
+}
+
+.search-input input {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    width: 100%;
+    color: #fff;
+    padding: 10px 20px;
+}
+
+.search-input input::placeholder {
+    color: #fff;
+}
+select:focus option {
+    color: #232323;
+}
+select:focus {
+    outline: 0;
+    background: transparent;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #fff;
+}
+select {
+    text-transform: capitalize;
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid #fff;
+    color: #fff;
+    padding: 10px;
+}
+.btn {
+    padding: 8px 50px;
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 2px;
+    color: #fff;
+}
+.potd-card .potd-img img {
+    box-shadow: 0 0 25px #232323
+}
+
+.potd-date h4,
+.potd-credit h4 {
+    color: #9a9a9a;
+    font-size: 18px;
+}
+.potd-title h3 {
+    font-size: 27px;
+}
+
+.potd-title,
+.potd-caption,
+.potd-date {
+    margin-bottom: 20px;
+}
+
+.team-member {
+    text-align: center;
+}
+
+.team-member div:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+.team-member-img img {
+    margin: auto;
+    box-shadow: 0 0 15px #9E9E9E;
+}
+footer {
+    text-align: center;
+    background-color: #232323;
+}
+
+footer p {
+    color: #fff;
+}
+
+.search-form-title h3 {
+    font-family: 'Work Sans', sans-serif;
+    margin-bottom: 45px;
+    text-align: center;
+    font-size: 40px;
+    color: #fff;
+    text-transform: uppercase;
+}
+.index-header.after-scroll {
+    background-color: #eee;
+    box-shadow: 7px 2px 7px #dcd6d6;
+    color: #232323;
+    transition: background 0.5s ease-in-out, padding 0.5s ease-in-out;
+}
+.about-card-img img {
+    max-width: 150px;
+    margin: auto;
+}
+.about-card-img,
+.about-card-title {
+    margin-bottom: 20px;
+}
+hr {
+    width: 100px;
+    border: 2px solid #FDCE00;
+    margin: auto;
+}
+.about-card {
+    text-align: center;
+}
+.about-card-title h4 {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+.section-text {
+    text-align: center;
+}
+
+.photopro {
+    color: #FDCE00;
+    font-weight: bold;
+}
+
+.index-header .nav-link {
+    color: #fff;
+    padding: 7px 15px;
+}
+.login-btn {
+    border: 1px solid #fff;
+    border-radius: 3px;
+}
+
+.index-header .nav-link:not(:last-child) {
+    margin-right: 10px;
+}
+
+.after-scroll .nav-link {
+    color: #232323;
+}
+.after-scroll .login-btn {
+    border: 1px solid #232323;
+}
+
+button.login-btn {
+    background-color: transparent;
+}
+
+.nav-dropdown {
+    display: inline;
+    position: relative;
+}
+
+.hidden {
+    display: none;
+}
+.nav-dropdown-links {
+    background-color: transparent;
+    padding-top: 30px;
+    position: absolute;
+    top: 28px;
+    left: 2px;
+}
+.inner-div {
+    display: flex;
+    background-color: #fff;
+    flex-direction: column;
+}

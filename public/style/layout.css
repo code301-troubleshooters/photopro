@@ -1,31 +1,82 @@
-header{
+header {
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 10px 20px;
-    background-color: #dfe2db ;
+    padding: 45px 30px;
+    background-color: #dfe2db;
     z-index: 999;
 
 }
-nav{
+nav {
     display: flex;
     justify-content: space-between;
 
 }
-p, a, li, span, input, button, select{
-    font-size: 18px;
-}
-.main-banner{
+
+.main-banner {
     min-height: 85vh;
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
-.row{
+.row {
     max-width: 1000px;
     margin: auto;
-    padding: 40px 0;
+    padding: 80px 0;
 }
-.team{
-    background-color: #ececec;
+.search-input,
+.search-select {
+    margin-bottom: 40px;
+}
+.search-form {
+    width: 600px;
+    margin: auto;
+}
+.search-select {
+    display: flex;
+    justify-content: space-between;
+}
+.search-select select {
+    width: 30%;
+}
+.search-butten {
+    text-align: center;
+}
+
+.potd-card {
+    display: flex;
+    justify-content: space-between;
+}
+
+.potd-card .potd-info,
+.potd-card .potd-img {
+    width: 50%;
+    padding: 0 15px;
+}
+
+.team-members {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.team-member {
+    padding: 0 15px;
+    width: 30%;
+}
+
+footer {
+    padding: 15px;
+}
+.about-cards {
+    margin-top: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.about-card {
+    width: 30%;
+}
+.nav-bar form{
+    display: inline;
 }
