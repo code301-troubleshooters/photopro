@@ -194,10 +194,10 @@ function loginUserHandler(req, res) {
 
 function dashboardHandler(req, res) {
   if (req.user) {
-    res.render('dashboard', { LoggedIn: true, user: req.user, pageName: 'Dashboard' })
+    res.redirect('/');
   }
   else {
-    res.render('dashboard', { LoggedIn: false,  pageName: 'Dashboard' });
+    res.redirect('/');
   }
 }
 

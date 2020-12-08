@@ -179,8 +179,8 @@ outline: 0;
     flex-direction: row;
 }
 
-.search-results-search-form input, .search-results-search-form  select{
-    border: 1px solid #232323!important;
+.search-results-search-form .search-input input, .search-results-search-form .search-select select{
+    border: 1px solid #232323; 
 }
 
 .search-results-search-form input::placeholder, .search-results-search-form  select{
@@ -191,3 +191,4 @@ outline: 0;
     margin-bottom: 0;
 
 }
+
