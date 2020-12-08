@@ -80,3 +80,42 @@ footer {
 .nav-bar form{
     display: inline;
 }
+.first-section{
+    margin-top: 106px;
+
+}
+.regist-form{
+    padding: 10px 30px 20px;
+    /* border: 3px s; */
+    border-radius: 5px;
+    max-width: 600px;
+    margin: auto;
+}
+.form-input input{
+    width: 100%;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border:1px solid #232323;
+}
+.form-input input:focus{
+border: 2px solid #FDCE00;
+outline: 0;
+
+}
+.section-icons img{
+    margin: auto;
+    max-width: 50px;
+}
+.section-icons{
+    margin-bottom: 20px;
+}
+.form-input .btn{
+    max-width: 200px;
+    margin: auto;
+    display: block;
+    background-color: #232323;
+}
+.regist-form-section{
+    min-height: 100vh;
+}
