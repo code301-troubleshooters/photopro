@@ -77,10 +77,117 @@ footer {
 .about-card {
     width: 30%;
 }
-.nav-bar form{
+.nav-bar form {
     display: inline;
 }
-.course-card {
+
+.first-section{
+    margin-top: 106px;
+
+}
+.regist-form{
+    padding: 10px 30px 20px;
+    /* border: 3px s; */
+    border-radius: 5px;
+    max-width: 600px;
+    margin: auto;
+}
+.form-input input{
+    width: 100%;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    border:1px solid #232323;
+}
+.form-input input:focus{
+border: 2px solid #FDCE00;
+outline: 0;
+
+}
+.section-icons img{
+    margin: auto;
+    max-width: 50px;
+}
+.section-icons{
+    margin-bottom: 20px;
+}
+.form-input .btn{
+    max-width: 200px;
+    margin: auto;
+    display: block;
+    background-color: #232323;
+}
+.regist-form-section{
+    min-height: 100vh;
+}
+
+.search-results-cards {
+    column-count: 3;
+    column-gap: 30px;
+}
+
+.search-result-card {
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    break-inside: avoid;
+}
+
+.photographer-details {
+    display: flex;
+}
+
+.img-tags ul {
+    flex-wrap: wrap;
+    display: flex;
+}
+.img-tags ul::before{
+    content: 'Tags:';
+    font-size: 16px;
+    color: #6d6d6d;
+    margin-right: 5px;
+    padding-top: 3px;
+}
+.img-tags li {
+    margin-bottom: 5px;
+    padding: 4px 15px;
+    border-radius: 10px;
+  
+}
+.img-tags li:not(:last-child) {
+    margin-right: 5px;
+}
+
+.img-tags {
+    margin-bottom: 10px;
+}
+.search-results .row {
+    max-width: 1400px;
+}
+
+.img-related-info{
+    padding: 10px 15px;
+}
+.search-results-search-form{
+    padding: 40px 0;
+}
+.search-results-search-form form{  
+    margin: auto;
+    max-width: 1000px;
     display: flex;
     justify-content: space-between;
+    flex-direction: row;
+}
+
+.search-results-search-form input, .search-results-search-form  select{
+    border: 1px solid #232323!important;
+}
+
+.search-results-search-form input::placeholder, .search-results-search-form  select{
+    color: #232323;
+}
+
+.search-results-search-form .search-input, .search-results-search-form .search-select{
+    margin-bottom: 0;
+
 }
