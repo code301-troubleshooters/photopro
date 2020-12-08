@@ -1,37 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
+<%- include('./components/header') %>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books</title>
-</head>
-
-<body>
-    <%- include('./components/header') %>
-
-    <main>
-        <section >
-            
-            <%books.forEach(val =>{%>
+<main>
+    <h1>Recommended Books</h1>
+    <section class="books-section">
+        <%books.forEach(val =>{%>
+            <section class="books-cards">
+            <div class="row">
                 <div class="books-card">
-            <div class="book-title">
-                <h4><%=val.title%></h4>
+                    <div class="book-img">
+                        <a href="<%=val.link%>"><img src="<%=val.image%>"></a>
+                    </div>
+                    <div class="book-info">
+                        <div class="book-title">
+                            <h4><%=val.title%></h4>
+                        </div>
+                        <hr class="book-hr">
+                        <div class="auther-title">
+                            <h5><%=val.authors%></h5>
+                        </div>
+                        <div class="book-desc">
+                            <p><%=val.description%></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="book-img">
-                <a href="<%=val.link%>"><img src="<%=val.image%>"></a>
-            </div>
-            <div class="auther-title">
-                <h5><%=val.authors%></h5>
-            </div>
-            <div class="book-desc">
-                <p><%=val.description%></p>
-            </div>
-            <%})%>
-        </div>
-        </section>
-    </main>
-    <%- include('./components/footer') %>
-</body>
-
-</html>
+            </section>
+        <%})%>
+    </section>
+</main>
+<%- include('./components/footer') %>

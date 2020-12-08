@@ -80,3 +80,7 @@ footer {
 .nav-bar form{
     display: inline;
 }
+.course-card {
+    display: flex;
+    justify-content: space-between;
+}

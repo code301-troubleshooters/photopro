@@ -7,26 +7,32 @@
 </head>
 <body>
     <%- include('./components/header') %>
-    <h1>Recommended Courses</h1>
+    <h1 class="courses-title">Recommended Courses</h1>
     <main>
         <section>
             <%courses.forEach(course=>{%>
-            <div class="course-card">
-                <div class="course-tittle">
-                    <h2><%=course.title%></h2>
-                </div>
+                <section class="course-card-section">
+                    <div class="row">
+                        <div class="course-card">
                 <div class="course-img">
                     <a href="https://www.udemy.com<%=course.course_url%>"><img src="<%=course.course_img%>"></a>
                 </div>
-
-                <div class="course-disc">
+                <div class="course-info">
+                <div class="course-tittle">
+                    <h3><%=course.title%></h3>
+                </div>
+                <hr class="course-hr">
+               <div class="course-disc">
                     <h3><%=course.disc%></h3>
                 </div>
                 <div class="course-inst">
-                    <h3><%=course.inst%></h3>
                     <a href="https://www.udemy.com<%=course.inst_url%>"><img src="<%=course.inst_img%>"></a>
+                    <h3><%=course.inst%></h3>
                 </div>
             </div>
+            </div>
+        </div>
+    </section>
             <% })%>
         </section>
     </main>
