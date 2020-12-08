@@ -4,7 +4,10 @@
 
 }
 .main-banner {
-    background-image: url('../images/index-banner.jpeg');
+    /*background-image: url('../images/index-banner.jpeg');
+    */
+    
+  background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://gdurl.com/gJJK");
     background-size: cover;
     position: relative;
     background-attachment: fixed;
@@ -23,14 +26,14 @@
 .section-text p {
     margin-bottom: 10px;
 }
-.parallex {
+/*.parallex {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.6);
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
-}
+}*/
 
 .search-input input:focus {
     outline: 0;
