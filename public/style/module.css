@@ -624,3 +624,12 @@ button.login-btn {
 .userName{
     cursor: default;
 }
+.regist-form ul{
+    padding-left: 20px;
+    list-style: disc;
+    color: red;
+}
+.regist-form li{
+    color: red;
+    margin-bottom: 15px;
+}
