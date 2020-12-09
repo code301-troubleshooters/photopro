@@ -79,7 +79,7 @@ function favouriteHandler(req, res) {
   let SQL = `SELECT * FROM images WHERE image_type=$1 and id IN (SELECT img_id FROM favourite WHERE user_id = $2)`
   client.query(SQL, [req.body.type, req.user.id])
     .then((data) => {
-      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user, pageName: 'Favourite List' });
+      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user, pageName: 'Favourite List', totalFavorites: data.rows.length });
     })
     .catch(e => {
       res.send(e);
@@ -123,7 +123,7 @@ function displayFavoriteHandler(req, res) {
   client.query(SQL, [req.user.id])
     .then((data) => {
       console.log(data.rows);
-      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user, pageName: 'Favourtie List'});
+      res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user, pageName: 'Favourtie List', totalFavorites: data.rows.length});
     })
     .catch(e => {
       res.send(e);
@@ -178,19 +178,19 @@ function coursesHandler(req, res) {
 
 function registerUserHandler(req, res) {
   if (req.user) {
-    res.render('register', { LoggedIn: true, name: req.user,pageName: 'Register' })
+    res.render('register', { LoggedIn: true, name: req.user,pageName: 'Sign up' })
   }
   else {
-    res.render('register', { LoggedIn: false, pageName: 'Register' });
+    res.render('register', { LoggedIn: false, pageName: 'Sign up' });
   }
 }
 
 function loginUserHandler(req, res) {
   if (req.user) {
-    res.render('login', { LoggedIn: true, name: req.user, pageName: 'Login' })
+    res.render('login', { LoggedIn: true, name: req.user, pageName: 'Sign in' })
   }
   else {
-    res.render('login', { LoggedIn: false, pageName: 'Login' });
+    res.render('login', { LoggedIn: false, pageName: 'Sign in' });
   }
 }
 
@@ -235,7 +235,7 @@ async function registerUserInDBHandler(req, res) {
             });
         } else {
           errors.push({ message: "Email already registered" });
-          return res.render("register", { LoggedIn: false, err: errors,  pageName: 'Register' });
+          return res.render("register", { LoggedIn: false, err: errors,  pageName: 'Sign up' });
         }
       })
       .catch(() => {
@@ -284,10 +284,10 @@ function imagesSearchHandler(req, res) {
     });
     console.log(picturs);
     if (req.user) {
-      res.render('searchResults', { LoggedIn: true, imgs: picturs, user: req.user,  pageName: 'Search Results' });
+      res.render('searchResults', { LoggedIn: true, imgs: picturs, user: req.user,  pageName: 'Search Results', searchQuery: picSearch, searchResLenth: picturs.length  });
     }
     else {
-      res.render('searchResults', { imgs: picturs, LoggedIn: false, pageName: 'Search Results'  });
+      res.render('searchResults', { imgs: picturs, LoggedIn: false, pageName: 'Search Results', searchQuery: picSearch,  searchResLenth: picturs.length   });
     }
   });
 }

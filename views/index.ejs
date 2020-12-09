@@ -9,38 +9,39 @@
             <div class="search-form-title">
                 <h3>I don’t trust words. I trust pictures</h3>
             </div>
-        <div class="search-form">
-            <%- include('./components/search-form') %>
+            <div class="search-form">
+                <%- include('./components/search-form') %>
+            </div>
         </div>
-    </div>
     </section>
 
     <section class="potd=-section">
         <div class="row">
+            <div class="section-title">
+                <h3>
+                    PHOTO OF THE DAY
+                </h3>
+                <hr>
+            </div>
             <div class="potd-card">
-            <div class="potd-info">
-                <div class="section-title">
-                    <h3>
-                        PHOTO OF THE DAY
-                    </h3>
+                <div class="potd-info">
+                    <div class="potd-date">
+                        <h4><%= pictureOfTheDay.date %></h4>
+                    </div>
+                    <div class="potd-title">
+                        <h3><%= pictureOfTheDay.title %></h3>
+                    </div>
+                    <div class="potd-caption">
+                        <p><%= pictureOfTheDay.caption %></p>
+                    </div>
+                    <div class="potd-credit">
+                        <h4><%= pictureOfTheDay.credit %></h4>
+                    </div>
                 </div>
-                <div class="potd-date">
-                    <h4><%= pictureOfTheDay.date %></h4>
-                </div>
-                <div class="potd-title">
-                    <h3><%= pictureOfTheDay.title %></h3>
-                </div>
-                <div class="potd-caption">
-                    <p><%= pictureOfTheDay.caption %></p>
-                </div>
-                <div class="potd-credit">
-                    <h4><%= pictureOfTheDay.credit %></h4>
+                <div class="potd-img">
+                    <img src="<%= pictureOfTheDay.url %>" alt="<%= pictureOfTheDay.title %>">
                 </div>
             </div>
-            <div class="potd-img">
-                <img src="<%= pictureOfTheDay.url %>" alt="<%= pictureOfTheDay.title %>">
-            </div>
-        </div>
         </div>
     </section>
 
@@ -48,10 +49,13 @@
         <div class="row">
             <div class="section-title">
                 <h3>About</h3>
+                <hr>
             </div>
             <div class="section-text">
                 <p>
-                  <span class="photopro">PhotoPro</span> inspires photographers for their next shots by searching for images by category, color, and type of the photo. PhotoPro gets their iamges using <a href="https://pixabay.com/">Pixabay</a> API. Here is what PhotoPro offers:
+                    <span class="photopro">PhotoPro</span> inspires photographers for their next shots by searching for
+                    images by category, color, and type of the photo. PhotoPro gets their iamges using <a
+                        href="https://pixabay.com/" target="_blank">Pixabay</a> API. Here is what PhotoPro offers:
                 </p>
             </div>
             <div class="about-cards">
@@ -64,7 +68,8 @@
                         <hr>
                     </div>
                     <div class="about-card-text">
-                        <p><span class="photopro">PhotoPro</span> is completely free of charge. Enjoy browsing images ang get inspired!</p>
+                        <p><span class="photopro">PhotoPro</span> is completely free of charge. Enjoy browsing images
+                            ang get inspired!</p>
                     </div>
                 </div>
                 <div class="about-card">
@@ -76,7 +81,8 @@
                         <hr>
                     </div>
                     <div class="about-card-text">
-                        <p>On <span class="photopro">PhotoPro</span>, you can find free photography courses on Udemy, and photography-related books on Google Play store.</p>
+                        <p>On <span class="photopro">PhotoPro</span>, you can find free photography courses on Udemy,
+                            and photography-related books on Google Play store.</p>
                     </div>
                 </div>
                 <div class="about-card">
@@ -89,7 +95,8 @@
                         <hr>
                     </div>
                     <div class="about-card-text">
-                        <p>When you create an account on <span class="photopro">PhotoPro</span>, you can save images to your favorite list and view them again whenever you want!</p>
+                        <p>When you create an account on <span class="photopro">PhotoPro</span>, you can save images to
+                            your favorite list and view them again whenever you want!</p>
                     </div>
                 </div>
             </div>
@@ -100,57 +107,86 @@
         <div class="row">
             <div class="section-title">
                 <h3>Team</h3>
+                <hr>
             </div>
             <div class="section-text">
                 <p>
-                    <span class="photopro">PhotoPro</span> is bulid by a team called <span class="photopro">The Troubleshooters</span>. This team was assembled during Code 301 course at LTUC’s Abdul Aziz Al Ghurair School of Advanced Computing (ASAC) in Amman, Jordan.<br>Meet <span class="photopro">The Troubleshooters</span>:
+                    <span class="photopro">PhotoPro</span> is bulid by a team called <span class="photopro">The
+                        Troubleshooters</span>. This team was assembled during Code 301 course at LTUC’s Abdul Aziz Al
+                    Ghurair School of Advanced Computing (ASAC) in Amman, Jordan.<br>Meet <span class="photopro">The
+                        Troubleshooters</span>:
                 </p>
             </div>
             <div class="team-members">
 
                 <div class="team-member">
-                <div class="team-member-img">
-                    <img src="./images/avatar.jpg">
+                    <div class="team-member-img">
+                        <img src="./images/Hanaa.jpeg">
+                    </div>
+                    <div class="team-member-name">
+                        <h4>Hanaa Al Ghazzi</h4>
+                        <hr>
+                    </div>
+                    <div class="team-member-text">
+                        <p>Hello, My name is Hana'a, I am 23 and I have graduated from Zarqa' university with a bachelor's degree of pharmacy.
+                            I'm here to merge between medical field with software development. </p>
+                    </div>
+                    <div class="team-member-contact">
+                        <a href="mailto:h.ghazzi@outlook.com"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/hana-a-al-ghazzi-2020051a5/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </i>
+                        </a>
+                        <a href="https://github.com/HanaaGhazzi" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>
+                        </a>                    </div>
                 </div>
-                <div class="team-member-name">
-                    <h4>Hanaa Al Ghazzi</h4>
+                <div class="team-member">
+                    <div class="team-member-img">
+                        <img src="./images/Adnan2.jpg">
+                    </div>
+                    <div class="team-member-name">
+                        <h4>Adnan Alshibli</h4>
+                        <hr>
+                    </div>
+                    <div class="team-member-text">
+                        <p>My name is Adnan and I'm 25 years old, I have graduated as a Civil Engineer from Philadelphia. I'm  here to be a software engineer.
+                        </p>
+                    </div>
+                    <div class="team-member-contact">
+                        <a href="mailto:adnannajem.94@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/adnannajem/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </i>
+                        </a>
+                        <a href="https://github.com/adnanshibli" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>
+                        </a>
+                    </div>
                 </div>
-                <div class="team-member-text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, libero nulla. Eligendi fugiat vel deserunt dicta, nostrum totam facere voluptate, autem quia vitae nobis ab dolores aut ut aspernatur praesentium.</p>
+                <div class="team-member">
+                    <div class="team-member-img">
+                        <img src="./images/Husam.jpg">
+                    </div>
+                    <div class="team-member-name">
+                        <h4>Husam Ajour</h4>
+                        <hr>
+                    </div>
+                    <div class="team-member-text">
+                        <p>My name is Husam Ajour, and I'm 25 years old. I have a bachelor's degree in Computer Science from PSUT. The reason why I joined this course is to enhance my programming skills and learn Back-End Development in addition to other skills.</p>
+                    </div>
+                    <div class="team-member-contact">
+                        <a href="mailto:husamaj278@gmail.com"><i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/husamajour/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i>
+                        </i>
+                        </a>
+                        <a href="https://github.com/HusamAjour" target="_blank"><i class="fa fa-github" aria-hidden="true"></i>
+                        </a>                   
+                     </div>
                 </div>
-                <div class="team-member-contact">
-                    <a href="mailto:example@gmail.com">example@gmail.com</a>
-                </div>
-            </div>
-            <div class="team-member">
-                <div class="team-member-img">
-                    <img src="./images/avatar.jpg">
-                </div>
-                <div class="team-member-name">
-                    <h4>Adnan Alshibli</h4>
-                </div>
-                <div class="team-member-text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, libero nulla. Eligendi fugiat vel deserunt dicta, nostrum totam facere voluptate, autem quia vitae nobis ab dolores aut ut aspernatur praesentium.</p>
-                </div>
-                <div class="team-member-contact">
-                    <a href="mailto:example@gmail.com">example@gmail.com</a>
-                </div>
-            </div>
-            <div class="team-member">
-                <div class="team-member-img">
-                    <img src="./images/avatar.jpg">
-                </div>
-                <div class="team-member-name">
-                    <h4>Husam Ajour</h4>
-                </div>
-                <div class="team-member-text">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, libero nulla. Eligendi fugiat vel deserunt dicta, nostrum totam facere voluptate, autem quia vitae nobis ab dolores aut ut aspernatur praesentium.</p>
-                </div>
-                <div class="team-member-contact">
-                    <a href="mailto:example@gmail.com">example@gmail.com</a>
-                </div>
-            </div>
-            
+
             </div>
         </div>
     </section>

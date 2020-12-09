@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%=  pageName %></title>
+    <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css"
         integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg=="
         crossorigin="anonymous" />
@@ -14,17 +15,21 @@
 <body>
     <% if(pageName === 'PhotoPro: Home'){ %>
     <header class="index-header">
+        <%} else if(pageName === 'Sign in' || pageName === 'Sign up'){ %>
+            <header class="transparent-header">
         <%} else{ %>
-        <header class="">
+        <header class="index-header">
             <% } %>
             <nav>
                 <div class="logo">
-                    <img id="logo" src="./images/new-white.png" alt="">
+                    <a href="/">
+                        <img id="logo" src="./images/new-white.png" alt="">
+                    </a>
                 </div>
                 <div class="nav-bar">
                     <a class="nav-link" href="/">Home</a>
                     <div class="nav-dropdown" id="navDropdown">
-                        <a class="nav-link"> Recommendations</a>
+                        <a class="nav-link dropdown-title"> Recommendations</a>
                         <div class="nav-dropdown-links" id="navDropdownLinks">
                             <div class="inner-div">
                                 <a class="nav-link" href="/courses">Courses</a>
@@ -34,11 +39,11 @@
                     </div>
 
                     <% if(!LoggedIn) {%>
-                    <a class="nav-link login-btn" href="/register">Register</a>
-                    <a class="nav-link login-btn" href="/login">Login</a>
+                    <a class="nav-link login-btn" href="/register">Sign up</a>
+                    <a class="nav-link login-btn" href="/login">Sign in</a>
                     <% } else{%>
-                    <a class="nav-link">Welcome, <%=user.name%></a>
                     <a class="nav-link" href="/favorite">Favorite List</a>
+                    <a class="nav-link userName">Welcome, <%=user.name%></a>
                     <form action="/logout?_method=delete" method="POST">
                         <button class="nav-link login-btn" type="submit">Logout</button>
                     </form>
