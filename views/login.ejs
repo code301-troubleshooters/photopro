@@ -12,15 +12,15 @@
                     Sign in
                 </h3>
             </div>
+            <% if(messages.success_msg){ %>
+            <ul class="successful-reg">
+                <li><%= messages.success_msg %></li>
+            </ul>
+            <% } %>
             <div class="regist-form">
                 <form method="POST" action="/login">
                     <div class="form-input">  <input type="email" placeholder="Email" required name="email"></div>
                     <div class="form-input"> <input type="password" placeholder="Password" required name="password"></div>
-                    <% if(messages.success_msg){ %>
-                    <ul>
-                        <li><%= messages.success_msg %></li>
-                    </ul>
-                    <% } %>
                     
                     <% if(messages.error){ %>
                     <ul>

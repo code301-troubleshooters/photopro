@@ -633,3 +633,7 @@ button.login-btn {
     color: red;
     margin-bottom: 15px;
 }
+
+.successful-reg li{
+    color: green;
+}

@@ -14,7 +14,8 @@
             </div>
             <% if(searchResLenth === 0){ %>
             <div class="search-results-searchQuery">
-                <h3> <span class="colored-word"><%= searchResLenth %></span> search results fonud. Try searching for something else.</h3>
+                <h3> <span class="colored-word"><%= searchResLenth %></span> search results fonud. Try searching for
+                    something else.</h3>
             </div>
             <% } %>
             <div class="search-results-cards">
@@ -33,16 +34,23 @@
                                     <%})%>
                                 </ul>
                             </div>
+                            <div class="img-details-type">
+                                <p>Photo Type: <%=img.imgType%></p>
+                            </div>
                             <div class="photographer-details">
                                 <div class="photographer-details-img">
                                     <% if(img.photographerImg !== '') { %>
-                                    <img src="<%=img.photographerImg%>" alt="">
+                                    <a target="_blank"
+                                        href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><img
+                                            src="<%=img.photographerImg%>" alt=""></a>
                                     <% }else{ %>
-                                    <img src="./images/avatar.jpg" alt="">
+                                    <a target="_blank"
+                                        href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><img
+                                            src="./images/avatar.jpg" alt=""></a>
                                     <% } %>
                                 </div>
                                 <div class="photographer-details-name">
-                                    <a
+                                    <a target="_blank"
                                         href="https://pixabay.com/users/<%=img.photographerName%>-<%=img.photographerID%>"><%=img.photographerName%></a>
                                 </div>
                             </div>

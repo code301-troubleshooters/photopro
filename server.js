@@ -339,7 +339,7 @@ function Picture(value) {
   this.photographerID = value.user_id;
   this.photographerImg = value.userImageURL;
   this.tags = value.tags.split(', ');
-  this.imgType = value.type;
+  this.imgType = value.type.split('/')[0];
 }
 
 function Course(values) {
