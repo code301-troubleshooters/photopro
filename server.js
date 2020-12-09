@@ -60,8 +60,8 @@ app.get('/register', checkNotAuthenticatied, registerUserHandler);
 app.get('/login', checkNotAuthenticatied, loginUserHandler);
 app.get('/dashboard', checkAuthenticatied, dashboardHandler);
 app.delete('/logout', logoutHandler);
-app.post('/users/signup', checkNotAuthenticatied, registerUserInDBHandler);
-app.post("/users/login", checkNotAuthenticatied, passport.authenticate("local", {
+app.post('/register', checkNotAuthenticatied, registerUserInDBHandler);
+app.post("/login", checkNotAuthenticatied, passport.authenticate("local", {
   successRedirect: "/dashboard",
   failureRedirect: "/login",
   failureFlash: true
@@ -76,8 +76,18 @@ app.post('/favorite', checkAuthenticatied, favouriteHandler);
 
 
 function favouriteHandler(req, res) {
-  let SQL = `SELECT * FROM images WHERE image_type=$1 and id IN (SELECT img_id FROM favourite WHERE user_id = $2)`
-  client.query(SQL, [req.body.type, req.user.id])
+  let SQL;
+  let queryParams = [];
+  if (req.body.type !== 'none') {
+    SQL = `SELECT * FROM images WHERE image_type=$1 and id IN (SELECT img_id FROM favourite WHERE user_id = $2)`;
+    queryParams.push(req.body.type, req.user.id);
+  }
+  else{
+    SQL = `SELECT * FROM images WHERE id IN (SELECT img_id FROM favourite WHERE user_id = $1)`;
+    queryParams.push(req.user.id);
+  }
+  
+  client.query(SQL, queryParams)
     .then((data) => {
       res.render('userFavorite', { LoggedIn: true, favs: data.rows, user: req.user, pageName: 'Favourite List', totalFavorites: data.rows.length });
     })
@@ -217,7 +227,7 @@ async function registerUserInDBHandler(req, res) {
   }
 
   if (errors.length > 0) {
-    res.render('register', { LoggedIn: false, err: errors });
+    res.render('register', { LoggedIn: false, err: errors, pageName: 'Sign up' });
   } else {
     let checkIfUserExists = `SELECT * FROM users WHERE email = $1`;
     let hashedPass = await hashPasswords(password1);

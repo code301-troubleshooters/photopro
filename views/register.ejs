@@ -12,22 +12,22 @@
                     </h3>
                 </div>
                 <div class="regist-form">
-                    <form method="POST" action="/users/signup">
+                    <form method="POST" action="/register">
                         <div class="form-input"> <input type="text" placeholder="Name" required name="name"></div>
                         <div class="form-input"> <input type="email" placeholder="Email" required name="email"></div>
                         <div class="form-input"> <input type="password" placeholder="Enter Password" required
                                 name="password1"></div>
                         <div class="form-input"><input type="password" placeholder="Re-enter Password" required
                                 name="password2"></div>
+                                <% if(typeof err != 'undefined') {%>
+                                <ul>
+                                    <% err.forEach(error =>{ %>
+                                    <li> <%= error.message %></li>
+                                    <% }) %>
+                                </ul>
+                                <% } %>
                         <div class="form-input"><input class="btn" type="submit" value="Submit"></div>
                     </form>
-                    <% if(typeof err != 'undefined') {%>
-                    <ul>
-                        <% err.forEach(error =>{ %>
-                        <li> <%= error.message %></li>
-                        <% }) %>
-                    </ul>
-                    <% } %>
                 </div>
             </div>
         </div>
