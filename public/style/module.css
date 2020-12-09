@@ -343,7 +343,7 @@ text-align: center;
 }
 
 .books-title{
-    font-size: 35px;
+    font-size: 45px;
     margin:40px;
     text-align: center;
 }
@@ -356,6 +356,7 @@ text-align: center;
     text-align: center;
     color: #757575;
     font-size: 14px;
+    margin-bottom:15px;
 }
 .book-hr{
     margin-top: 7px;
