@@ -1,14 +1,17 @@
 <%- include('./components/header') %>
 
 <main>
-    <h1 class= "books-title">Recommended Books</h1>
-    <section class="books-section first-section" >
-        <%books.forEach(val =>{%>
-            <section class="books-cards">
+    <section class="page-banner">
+        <h2>Recommended Books</h2>
+    </section>
+    <section class="books-section">
+        <%books.forEach((val, index) =>{%>
+            <% if(index%2 === 0) {%>
+        <section class="books-cards">
             <div class="row">
                 <div class="books-card">
                     <div class="book-img">
-                        <a href="<%=val.link%>"><img src="<%=val.image%>"></a>
+                        <a href="<%=val.link%>" target="_blank"><img src="<%=val.image%>"></a>
                     </div>
                     <div class="book-info">
                         <div class="book-title">
@@ -16,17 +19,43 @@
                         </div>
                         <hr class="book-hr">
                         <div class="auther-title">
-                            <h5><%=val.authors%></h5>
+                            <h5>Author: <%=val.authors%></h5>
                         </div>
                         <div class="book-desc">
 
                             <%let x=val.description.split(' ').slice(0,30);%>
-                            <p><%= x.join(' ') ;%><a href="<%=val.link%>">...Read More</a></p>
+                            <p><%= x.join(' ') ;%><a href="<%=val.link%>" target="_blank">...Read More</a></p>
                         </div>
                     </div>
                 </div>
             </div>
+        </section>
+        <%} else{ %>
+
+            <section class="books-cards">
+                <div class="row">
+                    <div class="books-card">
+                        <div class="book-info">
+                            <div class="book-title">
+                                <h4><%=val.title%></h4>
+                            </div>
+                            <hr class="book-hr">
+                            <div class="auther-title">
+                                <h5>Author: <%=val.authors%></h5>
+                            </div>
+                            <div class="book-desc">
+    
+                                <%let x=val.description.split(' ').slice(0,30);%>
+                                <p><%= x.join(' ') ;%><a href="<%=val.link%>" target="_blank">...Read More</a></p>
+                            </div>
+                        </div>
+                        <div class="book-img">
+                            <a href="<%=val.link%>" target="_blank"><img src="<%=val.image%>"></a>
+                        </div>
+                    </div>
+                </div>
             </section>
+<% } %>
         <%})%>
     </section>
 </main>

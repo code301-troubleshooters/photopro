@@ -1,20 +1,31 @@
 <%- include('./components/header') %>
 
 <main>
-    <section class="first-section">
-        <form action="/favorite" method="POST" class="filter-form">
-            <select name="type" id="">
-                <option value="none" selected>All</option>
-                <option value="photo">photo</option>
-                <option value="illustration">illustration</option>
-                <option value="vector">vector</option>
-            </select>
-            <input type="submit" value="Submit">
-        </form>
+    <section class="page-banner">
+        <h2>Your Favourite Images</h2>
+        <div class="filter-form">
+            <form action="/favorite" method="POST" class="filter-form">
+                <div class="search-select">
+
+                    <select name="type" id="">
+                        <option value="none" selected>Filter</option>
+                        <option value="photo">photo</option>
+                        <option value="illustration">illustration</option>
+                        <option value="vector">vector</option>
+                    </select>
+                </div>
+                <div class="search-butten">
+                    <input class="btn" type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
     </section>
 
     <section class="search-results">
         <div class="row">
+            <div class="search-results-searchQuery">
+                <h3>You have <span class="colored-word"><%= totalFavorites %></span> images in you Favorite List</h3>
+            </div>
             <div class="search-results-cards">
 
                 <%favs.forEach(fav =>{%>
@@ -23,27 +34,30 @@
                         <img src="<%=fav.img_url%>" alt="">
                     </div>
                     <div class="img-related-info">
-                        <div class="img-details-type">
-                            <p><%=fav.image_type%></p>
-                        </div>
-                        <div class="photographer-details">
-                            <div class="photographer-details-img">
-                                <% if(fav.photographer_img_url !== '') { %>
-                                <img src="<%= fav.photographer_img_url%>" alt="">
-                                <% }else{ %>
-                                <img src="./images/avatar.jpg" alt="">
-                                <% } %>
+                        <div>
+                            <div class="img-details-type">
+                                <p>Photo Type: <%=fav.image_type%></p>
                             </div>
-                            <div class="photographer-details-name">
-                                <a
-                                    href="https://pixabay.com/users/<%=fav.photographer_name%>-<%=fav.photographer_id%>"><%=fav.photographer_name%></a>
-
+                            <div class="photographer-details">
+                                <div class="photographer-details-img">
+                                    <% if(fav.photographer_img_url !== '') { %>
+                                    <img src="<%= fav.photographer_img_url%>" alt="">
+                                    <% }else{ %>
+                                    <img src="./images/avatar.jpg" alt="">
+                                    <% } %>
+                                </div>
+                                <div class="photographer-details-name">
+                                    <a href="https://pixabay.com/users/<%=fav.photographer_name%>-<%=fav.photographer_id%>"><%=fav.photographer_name%></a>
+                                </div>
                             </div>
                         </div>
-                        <form action="/removeFromFavorite?_method=delete" method="post">
-                            <input type="hidden" name="image_id" value="<%=fav.id%>">
-                            <button>Remove from Favorite</button>
-                        </form>
+                        <div class="remove-form-btn">
+                            <form action="/removeFromFavorite?_method=delete" method="post">
+                                <input type="hidden" name="image_id" value="<%=fav.id%>">
+                                <button class="btn"><i class="fa fa-times" aria-hidden="true"></i>
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <%})%>

@@ -1,41 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Recommendations</title>
-</head>
-<body>
-    <%- include('./components/header') %>
-    <h1 class="courses-title">Recommended Courses</h1>
-    <main>
-        <section class="first-section">
-            <%courses.forEach(course=>{%>
-                <section class="course-card-section">
-                    <div class="row">
-                        <div class="course-card">
-                <div class="course-img">
-                    <a href="https://www.udemy.com<%=course.course_url%>"><img src="<%=course.course_img%>"></a>
-                </div>
-                <div class="course-info">
-                <div class="course-tittle">
-                    <h3><%=course.title%></h3>
-                </div>
-                <hr class="course-hr">
-               <div class="course-disc">
-                    <h3><%=course.disc%></h3>
-                </div>
-                <div class="course-inst">
-                    <a href="https://www.udemy.com<%=course.inst_url%>"><img src="<%=course.inst_img%>"></a>
-                    <h3><%=course.inst%></h3>
+<%- include('./components/header') %>
+<section class="page-banner">
+    <h2>Recommended Courses</h2>
+</section>
+<main>
+    <section class="course-cards-section">
+        <%courses.forEach((course, index) =>{%>
+        <% if(index%2 === 0) {%>
+        <section class="course-card-section">
+            <div class="row">
+                <div class="course-card">
+                    <div class="course-img">
+                        <a href="https://www.udemy.com<%=course.course_url%>" target="_blank"><img src="<%=course.course_img%>"></a>
+                    </div>
+                    <div class="course-info">
+                        <div class="course-tittle">
+                            <h3><%=course.title%></h3>
+                            <hr class="course-hr">
+                        </div>
+                        <div class="course-disc">
+                            <h3><%=course.disc%></h3>
+                        </div>
+                        <div class="course-inst">
+                            <div class="course-inst-img">
+                                <a href="https://www.udemy.com<%=course.inst_url%>" target="_blank"><img src="<%=course.inst_img%>"></a>
+                            </div>
+                            <div class="course-inst-name">
+                                <h3><%=course.inst%></h3>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-        </div>
-    </section>
-            <% })%>
         </section>
-    </main>
-    <%- include('./components/footer') %>
-</body>
-</html>
+        <% }else{ %>
+
+        <section class="course-card-section">
+            <div class="row">
+                <div class="course-card">
+                    <div class="course-info">
+                        <div class="course-tittle">
+                            <h3><%=course.title%></h3>
+                            <hr class="course-hr">
+                        </div>
+                        <div class="course-disc">
+                            <h3><%=course.disc%></h3>
+                        </div>
+                        <div class="course-inst">
+                            <div class="course-inst-img">
+                                <a href="https://www.udemy.com<%=course.inst_url%>" target="_blank"><img src="<%=course.inst_img%>"></a>
+                            </div>
+                            <div class="course-inst-name">
+                                <h3><%=course.inst%></h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="course-img">
+                        <a href="https://www.udemy.com<%=course.course_url%>" target="_blank"><img src="<%=course.course_img%>"></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <% }%>
+        <% })%>
+    </section>
+</main>
+<%- include('./components/footer') %>

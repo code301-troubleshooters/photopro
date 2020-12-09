@@ -1,32 +1,34 @@
 <%- include('./components/header') %>
 <main>
-    <section class="regist-form-section first-section">
+    <section class="regist-form-section signup-form">
         <div class="row">
-            <div class='section-icons'>
-                <!-- <img src="./images/login.png" alt=""> -->
-                <img  src="./images/sign-up.png" alt="">
-            </div>
-            <div class="section-title">
-                <h3>
-                    Registration
-                </h3>
-            </div>
-            <div class="regist-form">
-
-                <form method="POST" action="/users/signup">
-                    <div class="form-input"> <input type="text" placeholder="Name" required name="name"></div>
-                    <div class="form-input"> <input type="email" placeholder="Email" required name="email"></div>
-                    <div class="form-input"> <input type="password" placeholder="Enter Password" required name="password1"></div>
-                    <div class="form-input"><input type="password" placeholder="Re-enter Password" required name="password2"></div>
-                    <div class="form-input"><input class="btn" type="submit" value="Submit"></div>
-                </form>
-                <% if(typeof err != 'undefined') {%>
-                <ul>
-                    <% err.forEach(error =>{ %>
-                    <li> <%= error.message %></li>
-                    <% }) %>
-                </ul>
-                <% } %>
+            <div class="register-login-form">
+                <div class='section-icons'>
+                    <img src="./images/sign-up.png" alt="">
+                </div>
+                <div class="section-title">
+                    <h3>
+                        Sign up
+                    </h3>
+                </div>
+                <div class="regist-form">
+                    <form method="POST" action="/users/signup">
+                        <div class="form-input"> <input type="text" placeholder="Name" required name="name"></div>
+                        <div class="form-input"> <input type="email" placeholder="Email" required name="email"></div>
+                        <div class="form-input"> <input type="password" placeholder="Enter Password" required
+                                name="password1"></div>
+                        <div class="form-input"><input type="password" placeholder="Re-enter Password" required
+                                name="password2"></div>
+                        <div class="form-input"><input class="btn" type="submit" value="Submit"></div>
+                    </form>
+                    <% if(typeof err != 'undefined') {%>
+                    <ul>
+                        <% err.forEach(error =>{ %>
+                        <li> <%= error.message %></li>
+                        <% }) %>
+                    </ul>
+                    <% } %>
+                </div>
             </div>
         </div>
     </section>
